@@ -161,6 +161,7 @@ export default function InstagramFeed() {
                 src={item.src} 
                 alt={item.title} 
                 fill 
+                sizes="(max-width: 768px) 100vw, 66vw"
                 className="object-cover transition-all duration-[4s] ease-out lg:group-hover:scale-105 duration-700"
               />
               
@@ -213,6 +214,7 @@ export default function InstagramFeed() {
                   src={item.src} 
                   alt={item.title} 
                   fill 
+                  sizes="(max-width: 768px) 50vw, 25vw"
                   className="object-cover transition-all duration-[3s] ease-out lg:group-hover:scale-110 duration-700"
                 />
                 

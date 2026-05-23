@@ -152,6 +152,7 @@ export default function WhyChooseUs() {
                   src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop" 
                   alt="Trusted Travel Excellence"
                   fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover lg:group-hover:scale-110 transition-all duration-[6s] ease-out brightness-[0.6] group-hover:brightness-90 duration-700"
                 />
                 

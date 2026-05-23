@@ -47,6 +47,7 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   useEffect(() => {
     const handleActiveSection = () => {
       const ids = [...navLinks.map(l => l.href.replace("#", "")), "home"];
@@ -78,6 +79,7 @@ export default function Navbar() {
     
     return () => window.removeEventListener("scroll", handleActiveSection);
   }, []);
+
   const handleContactClick = (e: React.MouseEvent) => {
     e.preventDefault();
     const message = `Hello Jade Tours & Travel! I want to plan a trip.\n\n` +
@@ -139,7 +141,7 @@ export default function Navbar() {
                         className="flex flex-col"
                       >
                         <span className={`h-[14px] flex items-center leading-none transition-colors duration-500 ${isActive ? "text-[#388E3C]" : "text-gray-950"}`}>{link.name}</span>
-                        <span className="h-[14px] flex items-center leading-none text-[#388E3C]">{link.name}</span>
+                        <span aria-hidden="true" className="h-[14px] flex items-center leading-none text-[#388E3C]">{link.name}</span>
                       </motion.div>
                     </div>
                     {isActive && (
@@ -167,6 +169,7 @@ export default function Navbar() {
           <div className="flex items-center lg:hidden">
             <button 
               onClick={() => setIsMobileMenuOpen(true)}
+              aria-label="Open Menu"
               className={`w-12 h-12 flex items-center justify-center rounded-2xl transition-all duration-500 active:scale-90 ${
                 isScrolled 
                   ? "bg-white text-gray-950 shadow-sm border border-gray-100" 
@@ -205,6 +208,7 @@ export default function Navbar() {
               </div>
               <button 
                 onClick={() => setIsMobileMenuOpen(false)} 
+                aria-label="Close Menu"
                 className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center active:scale-90 transition-transform"
               >
                 <X size={24} strokeWidth={1.5} />

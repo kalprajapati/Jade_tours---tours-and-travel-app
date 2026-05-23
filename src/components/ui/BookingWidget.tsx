@@ -197,9 +197,11 @@ export default function BookingWidget() {
         <div className={`relative flex flex-col ${activeTab === "flights" ? "sm:grid sm:grid-cols-2" : ""} gap-3 lg:gap-4`}>
           {activeTab === "flights" && (
             <div className="space-y-1.5 lg:space-y-2">
-              <label className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">From</label>
+              <label htmlFor="from-input" className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">From</label>
               <div className="relative group">
                 <input 
+                  id="from-input"
+                  name="from"
                   type="text" 
                   placeholder="Departure city"
                   value={formData.from}
@@ -213,6 +215,7 @@ export default function BookingWidget() {
           {activeTab === "flights" && (
             <button 
               onClick={() => setFormData({ ...formData, from: formData.to, to: formData.from })}
+              aria-label="Swap locations"
               className="absolute left-[85%] sm:left-1/2 top-[44px] sm:top-[48px] -translate-x-1/2 w-8 h-8 rounded-xl bg-[#050807] text-white flex items-center justify-center transition-all shadow-lg z-10 hover:rotate-180 duration-700 active:scale-90 border border-white/20"
             >
               <ArrowLeftRight className="w-3.5 h-3.5" />
@@ -220,11 +223,13 @@ export default function BookingWidget() {
           )}
 
           <div className="space-y-1.5 lg:space-y-2">
-            <label className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
+            <label htmlFor="to-input" className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
               {activeTab === "flights" ? "To" : activeTab === "hotels" ? "Location" : "Destination"}
             </label>
             <div className="relative group">
               <input 
+                id="to-input"
+                name="to"
                 type="text" 
                 placeholder={activeTab === "visa" ? "Country name" : "Where to go?"}
                 value={formData.to}
@@ -237,12 +242,14 @@ export default function BookingWidget() {
 
         <div className={`grid ${activeTab === "visa" || activeTab === "packages" ? "grid-cols-1" : "grid-cols-2"} gap-3 lg:gap-4`}>
           <div className="space-y-1.5 lg:space-y-2">
-            <label className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
+            <label htmlFor="departure-input" className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
               {activeTab === "hotels" ? "Check-in" : "Date"}
             </label>
             <div className="relative group">
               <Calendar className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 lg:w-4 lg:h-4 text-primary opacity-30" />
               <input 
+                id="departure-input"
+                name="departure"
                 type="text" 
                 placeholder="Select date"
                 value={formData.departure}
@@ -256,12 +263,14 @@ export default function BookingWidget() {
           
           {(activeTab === "flights" || activeTab === "hotels") && (
             <div className="space-y-1.5 lg:space-y-2">
-              <label className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
+              <label htmlFor="return-input" className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
                 {activeTab === "hotels" ? "Check-out" : "Return Date"}
               </label>
               <div className="relative group">
                 <Calendar className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 lg:w-4 lg:h-4 text-primary opacity-30" />
                 <input 
+                  id="return-input"
+                  name="return"
                   type="text" 
                   placeholder="Select date"
                   value={formData.returnDate}
@@ -277,12 +286,14 @@ export default function BookingWidget() {
         </div>
 
         <div className="space-y-1.5 lg:space-y-2">
-          <label className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
+          <label htmlFor="travelers-select" className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
             Travelers
           </label>
           <div className="relative group">
             <Users className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 lg:w-4 lg:h-4 text-primary opacity-30" />
             <select 
+              id="travelers-select"
+              name="travelers"
               value={formData.travellers}
               onChange={(e) => setFormData({...formData, travellers: e.target.value})}
               className="w-full bg-gray-50/50 border border-gray-100 rounded-[14px] lg:rounded-[16px] h-12 lg:h-16 pl-10 lg:pl-12 pr-8 lg:pr-10 text-[10px] lg:text-[11px] font-black text-gray-950 appearance-none focus:outline-none focus:border-primary/30 transition-all cursor-pointer uppercase"

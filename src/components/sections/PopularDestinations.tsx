@@ -238,6 +238,7 @@ export default function PopularDestinations() {
                 src={dest.image} 
                 alt={dest.name} 
                 fill 
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-cover transition-transform duration-[6s] lg:group-hover:scale-110 ease-out brightness-[0.7] group-hover:brightness-90 transition-all duration-700" 
               />
               

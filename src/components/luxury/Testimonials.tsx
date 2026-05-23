@@ -1,7 +1,7 @@
 "use client";
-import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
-import { Quote, Star, Sparkles, CheckCircle2, Globe } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Quote, Star, ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -12,36 +12,42 @@ if (typeof window !== "undefined") {
 
 const testimonials = [
   {
-    quote: "Jade doesn't just plan trips; they engineer peace of mind. From private terminal access to hand-picked local guides, every detail was handled with precision.",
-    highlight: "engineer peace of mind",
-    author: "Elena V.",
-    role: "Global Philanthropist",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop",
-    location: "Zurich, Switzerland",
-    featured: true
-  },
-  {
-    quote: "The level of discretion and exclusive access Jigar and his team provide is unparalleled. They managed our 12-country tour without a single friction point.",
-    highlight: "without a single friction point",
-    author: "Marcus T.",
-    role: "Tech Executive",
+    quote: "Jade Tours handled our Dubai trip perfectly. Flights, hotel, and visa process were seamless. The coordination was truly smooth.",
+    highlight: "Dubai trip perfectly",
+    author: "Amit S.",
+    role: "Family Traveler",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200&auto=format&fit=crop",
-    location: "Palo Alto, CA",
-    featured: false
+    location: "Ahmedabad, India"
   },
   {
-    quote: "Finally, a travel concierge that understands the value of time. No friction, no noise. Just perfectly executed experiences that stay with you forever.",
-    highlight: "perfectly executed experiences",
-    author: "Sarah J.",
-    role: "Creative Director",
+    quote: "Booked a last-minute flight to Singapore. The team was incredibly quick and got me the best price compared to online portals.",
+    highlight: "best price",
+    author: "Rahul M.",
+    role: "Business Trip",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop",
+    location: "Mumbai, India"
+  },
+  {
+    quote: "Our Bali honeymoon was unforgettable. Everything from transfers to tours was well-organized. We didn't have to worry about a thing.",
+    highlight: "well-organized",
+    author: "Priya D.",
+    role: "Honeymoon Trip",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1200&auto=format&fit=crop",
+    location: "Pune, India"
+  },
+  {
+    quote: "Reliable visa assistance. They guided us through every step for our Europe tour documentation. Highly recommend their services!",
+    highlight: "Reliable visa assistance",
+    author: "Sneha K.",
+    role: "Group Traveler",
     image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1200&auto=format&fit=crop",
-    location: "London, UK",
-    featured: false
+    location: "Delhi, India"
   }
 ];
 
 export default function Testimonials() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -60,205 +66,160 @@ export default function Testimonials() {
           }
         }
       );
-
-      // Cards Sequence
-      gsap.fromTo(".testimonial-card", 
-        { y: 80, opacity: 0, scale: 0.95 },
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          stagger: 0.25,
-          duration: 1.8,
-          ease: "expo.out",
-          scrollTrigger: {
-            trigger: ".testimonials-grid",
-            start: "top 75%",
-          }
-        }
-      );
-
-      // Trust Badges Reveal
-      gsap.fromTo(".trust-badge-item", 
-        { y: 30, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          stagger: 0.12,
-          duration: 1.2,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".trust-badges-layer",
-            start: "top 90%",
-          }
-        }
-      );
-
-      // Floating Quote Parallax
-      gsap.to(".floating-quote", {
-        y: -30,
-        rotate: 15,
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true
-        }
-      });
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
-  return (
-    <section id="testimonials" ref={containerRef} className="py-16 lg:py-28 bg-white overflow-hidden relative scroll-mt-24">
-      {/* Cinematic Background Atmosphere */}
-      <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_90%_10%,rgba(56,142,60,0.03),transparent_50%)] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-full h-full bg-[radial-gradient(circle_at_10%_90%,rgba(56,142,60,0.02),transparent_50%)] pointer-events-none" />
+  const nextTestimonial = () => {
+    setActiveIndex((prev) => (prev + 1) % testimonials.length);
+  };
 
+  const prevTestimonial = () => {
+    setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  return (
+    <section id="testimonials" ref={containerRef} className="py-12 lg:py-32 bg-white overflow-hidden relative scroll-mt-24 border-t border-gray-100">
+      {/* Subtle Background Atmosphere */}
+      <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_90%_10%,rgba(56,142,60,0.02),transparent_60%)] pointer-events-none" />
+      
       <div className="container-custom relative z-10">
 
-        {/* Editorial Header */}
-        <div className="testimonials-header flex flex-col lg:flex-row lg:items-end justify-between mb-12 lg:mb-20 gap-8 lg:gap-12">
-          <div className="max-w-3xl space-y-6">
-            <div className="flex items-center gap-3 text-primary font-black uppercase tracking-[0.6em] text-[10px] lg:text-[11px] mb-4">
-              <span className="w-8 h-[1px] bg-primary/30" />
-              The Guest Chronicles
-            </div>
-            <h2 className="text-[34px] md:text-[52px] lg:text-[68px] xl:text-[80px] font-sans font-black text-gray-950 leading-[0.95] lg:leading-[1] tracking-tightest uppercase">
-              <span className="block testimonials-headline-line">Voices Of The</span>
-              <span className="block testimonials-headline-line text-primary italic font-serif font-light lowercase normal-case py-1">extraordinary.</span>
-            </h2>
+        {/* Header */}
+        <div className="testimonials-header flex flex-col items-center text-center mb-12 lg:mb-24 space-y-6">
+          <div className="flex items-center gap-3 text-primary font-black uppercase tracking-[0.5em] text-[10px] lg:text-[11px] mb-2">
+            <span className="w-8 h-[1px] bg-primary/30" />
+            Social Proof
+            <span className="w-8 h-[1px] bg-primary/30" />
           </div>
+          <h2 className="text-[34px] md:text-[52px] lg:text-[68px] xl:text-[80px] font-sans font-black text-gray-950 leading-[0.95] lg:leading-[1] tracking-tightest uppercase max-w-5xl">
+            <span className="block testimonials-headline-line">What Our</span>
+            <span className="block testimonials-headline-line text-primary italic font-serif font-light lowercase normal-case py-1">happy</span>
+            <span className="block testimonials-headline-line">Clients Say.</span>
+          </h2>
+        </div>
 
-          <div className="flex flex-col items-center lg:items-end gap-5">
-            <div className="flex items-center gap-4 px-6 py-3 bg-gray-50 rounded-[20px] border border-gray-100 shadow-inner">
-              <div className="flex items-center gap-1">
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} className="w-3.5 h-3.5 lg:w-4 lg:h-4 fill-accent-gold text-accent-gold" />
-                ))}
+        {/* Carousel Layout */}
+        <div className="relative max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-12 gap-8 items-center">
+            
+            {/* Left: Image Side */}
+            <div className="lg:col-span-5 relative">
+              <div className="relative aspect-square rounded-[32px] lg:rounded-[64px] overflow-hidden shadow-2xl border border-gray-100">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeIndex}
+                    initial={{ opacity: 0, scale: 1.1 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.8, ease: "circOut" }}
+                    className="absolute inset-0"
+                  >
+                    <Image 
+                      src={testimonials[activeIndex].image} 
+                      alt={testimonials[activeIndex].author} 
+                      fill 
+                      className="object-cover" 
+                    />
+                  </motion.div>
+                </AnimatePresence>
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-950/40 via-transparent to-transparent" />
               </div>
-              <div className="w-[1px] h-4 bg-gray-200" />
-              <span className="font-sans font-black text-gray-950 text-[12px] lg:text-lg tracking-tighter">4.9/5 RATING</span>
+              
+              {/* Controls (Mobile) */}
+              <div className="flex lg:hidden justify-center gap-4 mt-8">
+                <button onClick={prevTestimonial} className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors">
+                  <ArrowLeft className="w-5 h-5" />
+                </button>
+                <button onClick={nextTestimonial} className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors">
+                  <ArrowRight className="w-5 h-5" />
+                </button>
+              </div>
             </div>
-            <p className="text-[9px] lg:text-[11px] font-bold text-gray-400 uppercase tracking-[0.4em] lg:text-right text-center">
-              Based on 2,300+ Verified Journeys
-            </p>
+
+            {/* Right: Content Side */}
+            <div className="lg:col-span-7 lg:pl-12">
+              <div className="space-y-8 lg:space-y-12">
+                <div className="relative">
+                  <Quote className="w-16 h-16 lg:w-24 lg:h-24 text-primary/10 absolute -top-8 -left-8 lg:-top-12 lg:-left-12 -z-10" />
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeIndex}
+                      initial={{ opacity: 0, x: 30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -30 }}
+                      transition={{ duration: 0.6, ease: "circOut" }}
+                      className="space-y-8"
+                    >
+                      <div className="flex gap-1">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="w-5 h-5 fill-accent-gold text-accent-gold" />
+                        ))}
+                      </div>
+                      <blockquote className="text-xl md:text-3xl lg:text-[38px] font-sans font-black text-gray-950 leading-[1.3] tracking-tightest">
+                        &ldquo;{testimonials[activeIndex].quote.split(testimonials[activeIndex].highlight)[0]}
+                        <span className="text-primary border-b-2 border-primary/20">{testimonials[activeIndex].highlight}</span>
+                        {testimonials[activeIndex].quote.split(testimonials[activeIndex].highlight)[1]}&rdquo;
+                      </blockquote>
+                      <div className="flex flex-col">
+                        <span className="text-xl lg:text-3xl font-sans font-black text-gray-950 uppercase tracking-tighter">{testimonials[activeIndex].author}</span>
+                        <div className="flex items-center gap-3 mt-1.5">
+                          <span className="text-[10px] lg:text-[12px] font-black text-primary uppercase tracking-widest">{testimonials[activeIndex].role}</span>
+                          <div className="w-1 h-1 rounded-full bg-gray-300" />
+                          <span className="text-[10px] lg:text-[12px] font-bold text-gray-400 uppercase tracking-widest">{testimonials[activeIndex].location}</span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+
+                {/* Controls (Desktop) */}
+                <div className="hidden lg:flex items-center gap-8 pt-4">
+                  <div className="flex gap-4">
+                    <button 
+                      onClick={prevTestimonial}
+                      className="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-all active:scale-90 group"
+                    >
+                      <ArrowLeft className="w-6 h-6 group-hover:-translate-x-1 transition-transform" />
+                    </button>
+                    <button 
+                      onClick={nextTestimonial}
+                      className="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-all active:scale-90 group"
+                    >
+                      <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
+                  <div className="h-[1px] flex-1 bg-gray-100 relative">
+                    <motion.div 
+                      className="absolute inset-0 bg-primary origin-left"
+                      animate={{ scaleX: (activeIndex + 1) / testimonials.length }}
+                    />
+                  </div>
+                  <span className="text-[11px] font-black text-gray-400 uppercase tracking-widest">
+                    {String(activeIndex + 1).padStart(2, '0')} / {String(testimonials.length).padStart(2, '0')}
+                  </span>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
-        {/* Immersive Grid */}
-        <div className="testimonials-grid grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
-
-          {/* Master Story (Featured) */}
-          {testimonials.filter(t => t.featured).map((item, i) => (
-            <div
-              key={i}
-              className="testimonial-card lg:col-span-7 bg-[#050807] rounded-[32px] lg:rounded-[64px] p-8 md:p-14 lg:p-20 text-white relative overflow-hidden group shadow-[0_40px_80px_rgba(0,0,0,0.4)] border border-white/5 active:scale-[0.98] transition-transform"
-            >
-              <Quote className="floating-quote absolute top-8 right-8 lg:top-16 lg:right-16 w-24 h-24 lg:w-48 lg:h-48 text-white/[0.03] group-hover:text-white/[0.06] transition-all duration-1000 rotate-12 pointer-events-none" />
-
-              <div className="relative z-10 space-y-8 lg:space-y-16">
-                <div className="flex items-center gap-1.5">
-                  {[...Array(5)].map((_, idx) => (
-                    <Star key={idx} className="w-3.5 h-3.5 lg:w-6 lg:h-6 fill-accent-gold text-accent-gold border-none drop-shadow-[0_0_15px_rgba(197,160,89,0.4)]" />
-                  ))}
-                </div>
-
-                <blockquote className="text-[17px] md:text-3xl lg:text-[42px] font-sans font-medium mb-10 leading-[1.3] lg:leading-[1.2] tracking-tightest italic opacity-95">
-                  &ldquo;{item.quote.split(item.highlight)[0]}
-                  <span className="text-primary italic font-serif font-light underline decoration-primary/20 underline-offset-[8px] decoration-2">
-                    {item.highlight}
-                  </span>
-                  {item.quote.split(item.highlight)[1]}&rdquo;
-                </blockquote>
-
-                <div className="flex items-center gap-5 lg:gap-10">
-                  <div className="relative w-16 h-16 lg:w-28 lg:h-28 rounded-[20px] lg:rounded-[36px] overflow-hidden border-2 border-white/10 shadow-3xl group-hover:scale-110 transition-transform duration-1000 ease-out shrink-0">
-                    <Image src={item.image} alt={item.author} fill className="object-cover" />
-                  </div>
-                  <div className="space-y-1.5">
-                    <h4 className="text-xl lg:text-3xl font-sans font-black tracking-tightest uppercase">{item.author}</h4>
-                    <div className="flex flex-col gap-0.5">
-                      <p className="text-[9px] lg:text-[12px] text-primary font-black uppercase tracking-[0.3em] lg:tracking-[0.4em]">{item.role}</p>
-                      <p className="text-[8px] lg:text-[11px] text-white/30 uppercase tracking-[0.2em] font-bold">{item.location}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Atmospheric Glow */}
-              <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-            </div>
-          ))}
-
-          {/* Supporting Stories */}
-          <div className="lg:col-span-5 flex flex-col gap-6 lg:gap-12">
-            {testimonials.filter(t => !t.featured).map((item, i) => (
-              <div
-                key={i}
-                className="testimonial-card bg-gray-50 p-7 lg:p-12 rounded-[28px] lg:rounded-[48px] shadow-[0_15px_40px_rgba(0,0,0,0.02)] border border-gray-100/60 flex-1 relative group transition-all duration-1000 hover:bg-white hover:shadow-[0_40px_100px_rgba(0,0,0,0.05)] hover:border-primary/20 overflow-hidden active:scale-[0.98]"
-              >
-                {/* Floating Micro Quote */}
-                <Quote className="absolute -top-3 -right-3 w-16 h-16 text-primary/[0.03] group-hover:text-primary/[0.06] transition-all duration-1000 -rotate-12" />
-
-                <div className="flex items-center gap-1.5 mb-5 lg:mb-10">
-                  {[...Array(5)].map((_, idx) => (
-                    <Star key={idx} className="w-3 h-3 lg:w-4 lg:h-4 fill-accent-gold text-accent-gold border-none" />
-                  ))}
-                </div>
-
-                <blockquote className="text-[14px] lg:text-xl text-gray-800 font-sans font-medium mb-6 lg:mb-12 leading-relaxed tracking-tight opacity-90">
-                  &ldquo;{item.quote.split(item.highlight)[0]}
-                  <span className="font-black text-gray-950 border-b border-primary/20">
-                    {item.highlight}
-                  </span>
-                  {item.quote.split(item.highlight)[1]}&rdquo;
-                </blockquote>
-
-                <div className="flex items-center gap-4 lg:gap-6">
-                  <div className="relative w-12 h-12 lg:w-20 lg:h-20 rounded-[14px] lg:rounded-[24px] overflow-hidden shadow-xl group-hover:scale-110 transition-transform duration-1000 ease-out shrink-0 border border-white">
-                    <Image src={item.image} alt={item.author} fill className="object-cover" />
-                  </div>
-                  <div className="space-y-0.5">
-                    <h4 className="text-base lg:text-xl font-sans font-black text-gray-950 leading-none tracking-tight uppercase">{item.author}</h4>
-                    <p className="text-[8px] lg:text-[11px] text-primary font-black uppercase tracking-[0.3em]">{item.location}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Global Trust Proofs - Premium Badge Garden */}
-        <div className="trust-badges-layer mt-16 lg:mt-32 pt-16 lg:pt-32 border-t border-gray-100 flex flex-wrap justify-center items-center gap-8 lg:gap-24 opacity-60 hover:opacity-100 transition-opacity duration-1000">
-          
-          <div className="trust-badge-item flex flex-col items-center gap-3 group cursor-default">
-            <div className="flex items-center gap-1 bg-[#00b67a] p-1 lg:p-1.5 rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-700">
-               {[1, 2, 3, 4, 5].map((s) => (
-                <div key={s} className="w-3.5 h-3.5 lg:w-6 lg:h-6 bg-white flex items-center justify-center text-[#00b67a] text-[7px] lg:text-[12px] font-black">★</div>
-              ))}
-            </div>
-            <span className="text-[9px] lg:text-[11px] font-black text-gray-950 uppercase tracking-[0.4em] lg:tracking-[0.5em]">TRUSTPILOT ELITE</span>
-          </div>
-
-          <div className="trust-badge-item flex flex-col items-center gap-3 group cursor-default">
-            <div className="flex items-center gap-2.5 bg-white px-5 py-2 lg:px-6 lg:py-2 rounded-xl border border-gray-200 shadow-sm group-hover:border-primary/30 group-hover:shadow-xl transition-all duration-700">
-              <span className="text-lg lg:text-3xl font-black text-gray-950">4.9</span>
-              <div className="flex items-center gap-0.5">
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} className="w-2.5 h-2.5 lg:w-4 lg:h-4 fill-accent-gold text-accent-gold" />
-                ))}
-              </div>
-            </div>
-            <span className="text-[9px] lg:text-[11px] font-black text-gray-950 uppercase tracking-[0.4em] lg:tracking-[0.5em]">GOOGLE VERIFIED</span>
-          </div>
-
-          <div className="trust-badge-item flex flex-col items-center gap-2 group cursor-default">
-            <span className="text-2xl lg:text-5xl font-serif font-black text-primary drop-shadow-sm group-hover:scale-110 transition-transform duration-700">2.3K+</span>
-            <span className="text-[9px] lg:text-[11px] font-black uppercase tracking-[0.4em] lg:tracking-[0.5em] text-gray-400 text-center">GLOBAL STORIES</span>
-          </div>
-          
+        {/* Trusted By Bar */}
+        <div className="mt-16 lg:mt-32 pt-12 border-t border-gray-100 flex flex-wrap justify-center items-center gap-10 lg:gap-24 opacity-60">
+           <div className="flex items-center gap-3">
+              <Star className="w-4 h-4 fill-primary text-primary" />
+              <span className="text-[10px] lg:text-[11px] font-black text-gray-950 uppercase tracking-[0.4em]">GOOGLE VERIFIED</span>
+           </div>
+           <div className="flex items-center gap-3">
+              <span className="text-2xl lg:text-3xl font-black text-gray-950">4.9/5</span>
+              <span className="text-[10px] lg:text-[11px] font-black text-gray-400 uppercase tracking-[0.4em]">AVG RATING</span>
+           </div>
+           <div className="flex items-center gap-3">
+              <span className="text-2xl lg:text-3xl font-black text-gray-950">2300+</span>
+              <span className="text-[10px] lg:text-[11px] font-black text-gray-400 uppercase tracking-[0.4em]">REVIEWS</span>
+           </div>
         </div>
       </div>
     </section>

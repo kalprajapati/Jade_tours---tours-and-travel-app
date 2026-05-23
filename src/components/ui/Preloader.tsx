@@ -14,33 +14,31 @@ export default function Preloader({ onLoadingComplete }: { onLoadingComplete?: (
       const tl = gsap.timeline({
         onComplete: () => {
           setLoading(false);
-          setTimeout(() => {
-            onLoadingComplete?.();
-          }, 1000);
+          onLoadingComplete?.();
         }
       });
 
       tl.fromTo(".loader-logo", 
-        { opacity: 0, y: 20, scale: 0.9 },
-        { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: "expo.out" }
+        { opacity: 0, y: 15, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "power3.out" }
       )
       .fromTo(".loader-text-line", 
         { opacity: 0, y: 10 },
-        { opacity: 1, y: 0, stagger: 0.1, duration: 1, ease: "power2.out" }, "-=0.6"
+        { opacity: 1, y: 0, stagger: 0.08, duration: 0.6, ease: "power2.out" }, "-=0.4"
       )
       .to(".loader-progress", 
-        { scaleX: 1, duration: 1.5, ease: "power4.inOut" }
+        { scaleX: 1, duration: 1, ease: "power2.inOut" }
       )
       .to(".loader-content", {
         opacity: 0,
-        y: -40,
-        duration: 0.8,
-        ease: "expo.in"
-      }, "+=0.2")
+        y: -30,
+        duration: 0.5,
+        ease: "power3.in"
+      }, "+=0.1")
       .to(preloaderRef.current, {
         clipPath: "inset(0 0 100% 0)",
-        duration: 1.2,
-        ease: "expo.inOut"
+        duration: 0.8,
+        ease: "power4.inOut"
       });
     }, preloaderRef);
 
@@ -74,7 +72,7 @@ export default function Preloader({ onLoadingComplete }: { onLoadingComplete?: (
             <div ref={textRef} className="flex flex-col items-center space-y-6">
               <div className="overflow-hidden">
                 <h1 className="loader-text-line font-sans font-black text-4xl md:text-7xl lg:text-[84px] tracking-tightest text-white leading-none uppercase">
-                  JADE <span className="text-primary italic font-serif font-light lowercase">Atelier</span>
+                  JADE <span className="text-primary italic font-serif font-light lowercase">Tours & Travel</span>
                 </h1>
               </div>
               
@@ -84,14 +82,14 @@ export default function Preloader({ onLoadingComplete }: { onLoadingComplete?: (
               
               <div className="overflow-hidden">
                 <p className="loader-text-line text-[10px] lg:text-[12px] uppercase tracking-[0.8em] text-white/30 font-black font-sans text-center">
-                  Excellence Orchestrated
+                  Perfect Trips Every Time
                 </p>
               </div>
             </div>
 
             {/* Cinematic Overlay Detail */}
             <div className="absolute bottom-[-200px] left-1/2 -translate-x-1/2 opacity-20 whitespace-nowrap select-none pointer-events-none">
-               <span className="font-serif italic text-[180px] lg:text-[240px] text-white/[0.02]">Masterpiece</span>
+               <span className="font-serif italic text-[180px] lg:text-[240px] text-white/[0.02]">Journeys</span>
             </div>
 
           </div>

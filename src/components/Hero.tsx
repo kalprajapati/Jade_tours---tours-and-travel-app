@@ -3,7 +3,10 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import BookingWidget from "@/components/ui/BookingWidget";
 import MagneticButton from "@/components/ui/MagneticButton";
-import { ArrowRight, Plane, Star, Users, Globe2, ShieldCheck } from "lucide-react";
+import { 
+  ArrowRight, Plane, Star, Users, Globe2, ShieldCheck, 
+  CheckCircle2, MessageCircle 
+} from "lucide-react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -13,11 +16,11 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const stats = [
-  { label: "Years of Experience", value: "10+", icon: Star },
-  { label: "Happy Clients", value: "5K+", icon: Users },
-  { label: "Countries", value: "20+", icon: Globe2 },
-  { label: "Customer Support", value: "24/7", icon: ShieldCheck },
+const trustChips = [
+  { label: "Flight Booking", icon: Plane },
+  { label: "Visa Assistance", icon: ShieldCheck },
+  { label: "Holiday Packages", icon: Globe2 },
+  { label: "24/7 Support", icon: Users },
 ];
 
 export default function Hero() {
@@ -26,47 +29,49 @@ export default function Hero() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Entrance animations - Orchestrated for a premium feel
-      const tl = gsap.timeline({ defaults: { ease: "expo.out", duration: 1.8 } });
+      // Snappier entrance animations
+      const tl = gsap.timeline({ defaults: { ease: "power3.out", duration: 1.2 } });
       
-      tl.set(".hero-bg-image", { scale: 1.15 })
+      tl.set(".hero-bg-image", { scale: 1.1 })
         .to(".hero-bg-image", {
           scale: 1,
-          duration: 3,
-          ease: "power2.out"
+          duration: 2,
+          ease: "power2.inOut"
         })
         .fromTo(".hero-title-line", 
-          { y: 100, opacity: 0 },
+          { y: 50, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            stagger: 0.15,
-            delay: -2.2
+            stagger: 0.1,
+            delay: -1.5
           }
         )
         .fromTo(".hero-script", 
-          { opacity: 0, scale: 0.9, y: 20 },
-          { opacity: 1, scale: 1, y: 0, duration: 1.2 }, "-=1.8")
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, duration: 0.8 }, "-=1")
         .fromTo(".hero-description", 
-          { y: 30, opacity: 0 },
+          { y: 20, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 1.5
-          }, "-=1.6")
+            duration: 1
+          }, "-=0.8")
         .fromTo(".hero-cta-group", 
-          { y: 30, opacity: 0 },
+          { y: 20, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-          }, "-=1.4")
-        .fromTo(".hero-stat-card", 
-          { y: 40, opacity: 0 },
+            duration: 0.8
+          }, "-=0.6")
+        .fromTo(".hero-trust-chip", 
+          { y: 15, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            stagger: 0.12,
-          }, "-=1.2");
+            stagger: 0.08,
+            duration: 0.8
+          }, "-=0.4");
 
       // Background image parallax & content fade on scroll
       gsap.to(".hero-bg-image", {
@@ -104,8 +109,8 @@ export default function Hero() {
   };
 
   const handleContactClick = () => {
-    const message = `Hello Jade Atelier! I am seeking a luxury travel curation and would like to get in touch with your team.\n\n` +
-      `I am interested in learning more about your bespoke journeys and how you can redefine my travel experiences.`;
+    const message = `Hello Jade Tours & Travel! I want to plan an amazing trip.\n\n` +
+      `I'm interested in your services and would like to speak with an expert.`;
     
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/919825438324?text=${encodedMessage}`, '_blank');
@@ -115,64 +120,78 @@ export default function Hero() {
     <section 
       id="home" 
       ref={containerRef}
-      className="relative min-h-[100svh] lg:min-h-[85vh] flex flex-col pt-20 lg:pt-24 overflow-hidden bg-white"
+      className="relative min-h-[100svh] lg:min-h-[90vh] flex flex-col pt-16 lg:pt-24 overflow-hidden bg-white"
     >
       {/* Background Image - Cinematic treatment with Multi-layered Overlay */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <div className="relative w-full h-full hero-bg-image will-change-transform">
           <Image 
-            src="https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?q=80&w=2400&auto=format&fit=crop" 
-            alt="Luxury Travel Experience"
+            src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2400&auto=format&fit=crop" 
+            alt="Beautiful Landscape"
             fill
-            className="object-cover object-center opacity-60 lg:opacity-80 brightness-[0.9]"
+            className="object-cover object-center opacity-70 lg:opacity-90 brightness-[0.85]"
             priority
           />
         </div>
         {/* Artistic gradients for high-end depth */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-transparent to-white/70 lg:from-white/40 lg:to-white/60 z-10" />
-        <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-transparent lg:via-white/50 w-full lg:w-[60%] z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-transparent to-white/70 lg:from-white/30 lg:to-white/50 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/80 to-transparent lg:via-white/40 w-full lg:w-[60%] z-10" />
       </div>
 
       <div className="container-custom relative z-20 flex-1 flex flex-col justify-center py-6 lg:py-6 hero-content-inner">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
           
           {/* Left Content Side */}
-          <div className="max-w-[720px] text-center lg:text-left">
-            <div className="space-y-2 lg:space-y-6">
+          <div className="max-w-[750px] text-center lg:text-left">
+            <div className="space-y-4 lg:space-y-8">
               <div className="hero-script overflow-hidden">
-                <p className="font-script text-lg md:text-2xl lg:text-[36px] text-primary mb-0.5 lg:mb-2 leading-tight drop-shadow-[0_2px_15px_rgba(255,255,255,1)]">
-                  Luxury Without Compromise
+                <p className="font-script text-lg md:text-2xl lg:text-[32px] text-primary mb-0.5 lg:mb-2 leading-tight drop-shadow-[0_2px_15px_rgba(255,255,255,1)]">
+                  Your Trusted Travel Partner
                 </p>
               </div>
               
               <div className="overflow-hidden">
-                <h1 className="text-[34px] md:text-[54px] lg:text-[68px] xl:text-[76px] font-sans font-black text-gray-950 leading-[0.9] lg:leading-[0.95] mb-5 lg:mb-4 tracking-tightest uppercase">
-                  <span className="block hero-title-line">CRAFTING YOUR</span>
-                  <span className="block hero-title-line">ULTIMATE <span className="text-primary italic font-serif lowercase normal-case ml-1 lg:ml-2 drop-shadow-[0_2px_15px_rgba(255,255,255,0.8)]">escape</span></span>
+                <h1 className="text-[32px] md:text-[54px] lg:text-[64px] xl:text-[72px] font-sans font-black text-gray-950 leading-[1.1] lg:leading-[1] mb-4 lg:mb-6 tracking-tightest uppercase">
+                  <span className="block hero-title-line">Your Trusted Travel &</span>
+                  <span className="block hero-title-line text-primary italic font-serif lowercase normal-case ml-1 lg:ml-2 drop-shadow-[0_2px_15px_rgba(255,255,255,0.8)]">Air Ticketing</span>
+                  <span className="block hero-title-line">Partner</span>
                 </h1>
               </div>
               
               <div className="hero-description overflow-hidden">
-                <p className="text-[13px] md:text-base lg:text-[18px] text-gray-600 mb-8 lg:mb-8 leading-relaxed font-medium max-w-[620px] mx-auto lg:mx-0 tracking-tight">
-                  Jade Tours and Travels curates bespoke journeys that transcend the ordinary. From hidden gems to iconic horizons, we redefine how you see the world.
+                <p className="text-[13px] md:text-base lg:text-[20px] text-gray-700 mb-6 lg:mb-10 leading-relaxed font-semibold max-w-[650px] mx-auto lg:mx-0 tracking-tight">
+                  Domestic & international tours, flight bookings, visa assistance, and complete travel planning — all in one place.
                 </p>
+              </div>
+
+              {/* Trust Chips */}
+              <div className="flex flex-wrap justify-center lg:justify-start gap-2 lg:gap-3 mb-6 lg:mb-10">
+                {trustChips.map((chip, i) => (
+                  <div 
+                    key={i} 
+                    className="hero-trust-chip flex items-center gap-2 px-3 py-1.5 lg:px-4 lg:py-2 bg-white/80 backdrop-blur-md rounded-full border border-gray-100 shadow-sm"
+                  >
+                    <CheckCircle2 className="w-3 h-3 text-primary" />
+                    <span className="text-[9px] lg:text-[11px] font-black uppercase tracking-widest text-gray-950">{chip.label}</span>
+                  </div>
+                ))}
               </div>
 
               <div className="hero-cta-group flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 lg:gap-5">
                 <MagneticButton 
                   onClick={() => handleScrollTo("destinations")}
-                  className="w-full sm:w-auto px-10 py-5 lg:px-10 lg:py-4 bg-[#388E3C] text-white font-black rounded-full flex items-center justify-center gap-3 lg:gap-3 transition-all shadow-[0_20px_40px_rgba(56,142,60,0.25)] hover:bg-[#2E7D32] group text-[11px] lg:text-[11px] uppercase tracking-[0.25em] relative overflow-hidden active:scale-95"
+                  className="w-full sm:w-auto px-10 py-5 lg:px-12 lg:py-5 bg-[#388E3C] text-white font-black rounded-full flex items-center justify-center gap-3 lg:gap-3 transition-all shadow-[0_20px_40px_rgba(56,142,60,0.25)] hover:bg-[#2E7D32] group text-[11px] lg:text-[12px] uppercase tracking-[0.25em] relative overflow-hidden active:scale-95"
                 >
-                  <span className="relative z-10">Start Your Journey</span>
-                  <Plane className="w-4 h-4 lg:w-4 lg:h-4 group-hover:rotate-12 transition-transform relative z-10" />
+                  <span className="relative z-10">Plan Your Trip</span>
+                  <ArrowRight className="w-4 h-4 lg:w-5 lg:h-5 group-hover:translate-x-1 transition-transform relative z-10" />
                 </MagneticButton>
                 
                 <button 
                   onClick={handleContactClick}
-                  className="w-full sm:w-auto px-10 py-5 lg:px-10 lg:py-4 bg-white/70 backdrop-blur-md text-gray-950 font-black rounded-full flex items-center justify-center gap-3 lg:gap-3 transition-all hover:shadow-[0_8px_25px_rgba(0,0,0,0.08)] border border-white group text-[11px] lg:text-[11px] uppercase tracking-[0.25em] active:scale-95"
+                  className="w-full sm:w-auto px-10 py-5 lg:px-12 lg:py-5 bg-white/80 backdrop-blur-md text-gray-950 font-black rounded-full flex items-center justify-center gap-3 lg:gap-3 transition-all hover:shadow-[0_8px_25px_rgba(0,0,0,0.08)] border border-gray-200 group text-[11px] lg:text-[12px] uppercase tracking-[0.25em] active:scale-95 shadow-sm"
                 >
-                  Get in Touch
-                  <ArrowRight className="w-4 h-4 lg:w-4 lg:h-4 group-hover:translate-x-1 transition-transform" />
+                  <MessageCircle className="w-4 h-4 lg:w-5 lg:h-5 text-[#25D366] fill-[#25D366]/10" />
+                  WhatsApp Us
                 </button>
               </div>
             </div>
@@ -196,36 +215,6 @@ export default function Hero() {
             </motion.div>
           </div>
 
-        </div>
-      </div>
-
-      {/* Integrated Stats Bar - Redesigned for Mobile Purity */}
-      <div className="relative z-30 bg-transparent py-6 lg:py-10 mt-auto">
-        <div className="container-custom px-4 lg:px-6">
-          <div className="relative overflow-hidden group">
-            <div className="absolute inset-0 bg-white/90 backdrop-blur-2xl rounded-[32px] lg:rounded-[40px] shadow-[0_25px_60px_rgba(0,0,0,0.05)] border border-white" />
-            
-            <div className="relative grid grid-cols-2 lg:grid-cols-4 gap-y-6 lg:gap-0 p-6 lg:p-8">
-              {stats.map((stat, i) => (
-                <div
-                  key={i}
-                  className="hero-stat-card flex items-center gap-3.5 lg:gap-6 lg:justify-center lg:border-r last:border-0 border-gray-100 px-1 group/stat"
-                >
-                  <div className="w-10 h-10 lg:w-14 lg:h-14 rounded-2xl lg:rounded-2xl bg-primary/5 flex items-center justify-center text-primary shrink-0 shadow-sm group-hover/stat:bg-primary group-hover/stat:text-white transition-all duration-700 transform group-hover/stat:scale-105">
-                    <stat.icon className="w-5 h-5 lg:w-7 lg:h-7" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-xl lg:text-[28px] font-black text-gray-950 leading-none tracking-tightest">
-                      {stat.value}
-                    </span>
-                    <span className="text-[8px] lg:text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] lg:tracking-[0.3em] mt-1.5 group-hover/stat:text-primary transition-colors duration-500">
-                      {stat.label}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </section>

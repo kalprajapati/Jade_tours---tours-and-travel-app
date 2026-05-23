@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { Heart, Shield, Zap, Sparkles, CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Shield, Globe2, Compass } from "lucide-react";
 import Image from "next/image";
 import MagneticButton from "@/components/ui/MagneticButton";
 import gsap from "gsap";
@@ -10,185 +10,138 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const benefits = [
-  { 
-    title: "Zero Surprises Pricing", 
-    desc: "What you see is exactly what you pay. No hidden fees, no last-minute adjustments. Just total transparency.", 
-    icon: Shield 
-  },
-  { 
-    title: "Master-Crafted Itineraries", 
-    desc: "Our specialists don't just book hotels; they weave together unique narratives tailored to your absolute standard.", 
-    icon: Heart 
-  },
-  { 
-    title: "Frictionless Reality", 
-    desc: "A dedicated concierge anticipates every variable, ensuring you stay in the moment while we handle the logistics.", 
-    icon: Zap 
-  },
-];
-
 export default function ValuesSection() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const imagesRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Headline Stagger
-      gsap.fromTo(".values-headline-line", 
-        { y: 60, opacity: 0 },
+      gsap.fromTo(".about-headline-line", 
+        { y: 40, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          stagger: 0.15,
-          duration: 1.5,
-          ease: "expo.out",
+          stagger: 0.1,
+          duration: 1,
+          ease: "power3.out",
           scrollTrigger: {
-            trigger: ".values-header",
+            trigger: ".about-header",
+            start: "top 90%",
+          }
+        }
+      );
+
+      // Image Reveal
+      gsap.fromTo(imageRef.current, 
+        { opacity: 0, x: 30, scale: 0.98 },
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: imageRef.current,
             start: "top 80%",
           }
         }
       );
 
-      // Value Tiles Entrance
-      gsap.fromTo(".value-tile", 
-        { x: -40, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          stagger: 0.15,
-          duration: 1.2,
-          ease: "expo.out",
-          scrollTrigger: {
-            trigger: ".values-grid",
-            start: "top 75%",
-          }
-        }
-      );
-
-      // Polaroid Spread Animation
-      gsap.fromTo(".polaroid-card", 
-        { 
-          opacity: 0, 
-          scale: 0.8, 
-          y: 100,
-          rotate: (i) => i === 0 ? 15 : -15 
-        },
+      // Mission points reveal
+      gsap.fromTo(".mission-point", 
+        { opacity: 0, y: 15 },
         {
           opacity: 1,
-          scale: 1,
           y: 0,
-          rotate: (i) => i === 0 ? -8 : 12,
-          stagger: 0.3,
-          duration: 2,
-          ease: "expo.out",
+          stagger: 0.1,
+          duration: 0.8,
+          ease: "power2.out",
           scrollTrigger: {
-            trigger: imagesRef.current,
-            start: "top 70%",
+            trigger: ".mission-list",
+            start: "top 90%",
           }
         }
       );
-
-      // Seal Pulse & Spin
-      gsap.fromTo(".brand-seal", 
-        { scale: 0, rotate: -180 },
-        {
-          scale: 1,
-          rotate: 0,
-          duration: 1.5,
-          ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: imagesRef.current,
-            start: "top 60%",
-          }
-        }
-      );
-
-      // Polaroid Parallax
-      gsap.to(".polaroid-parallax-1", {
-        y: -40,
-        rotate: -12,
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true
-        }
-      });
-
-      gsap.to(".polaroid-parallax-2", {
-        y: 60,
-        rotate: 18,
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true
-        }
-      });
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section id="values" ref={containerRef} className="py-16 lg:py-28 bg-white overflow-hidden relative border-t border-gray-100 scroll-mt-24">
-      {/* Premium Background Accents */}
-      <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_85%_15%,rgba(56,142,60,0.04),transparent_60%)] pointer-events-none" />
+    <section id="about" ref={containerRef} className="py-12 lg:py-32 bg-white overflow-hidden relative border-t border-gray-100 scroll-mt-24">
+      {/* Subtle Background Accents */}
+      <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_90%_10%,rgba(56,142,60,0.03),transparent_60%)] pointer-events-none" />
       
       <div className="container-custom relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-32">
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
           
-          {/* Content Side: The Narrative */}
-          <div className="w-full lg:w-1/2 space-y-8 lg:space-y-12">
-            <div className="values-header space-y-4 lg:space-y-8">
+          {/* Content Side */}
+          <div className="w-full lg:w-3/5 space-y-8 lg:space-y-12">
+            <div className="about-header space-y-4 lg:space-y-8">
               <div className="flex items-center gap-3 text-primary font-black uppercase tracking-[0.5em] text-[10px] lg:text-[11px] mb-2 lg:mb-4">
                 <span className="w-8 h-[1px] bg-primary/30" />
-                The Jade Distinction
+                About Jade Tours & Travel
               </div>
-              <h2 className="text-[34px] md:text-[52px] lg:text-[68px] xl:text-[80px] font-sans font-black text-gray-950 leading-[0.95] lg:leading-[1] tracking-tightest uppercase">
-                <span className="block values-headline-line">Elegance In</span>
-                <span className="block values-headline-line text-primary italic font-serif font-light lowercase normal-case py-1">every</span>
-                <span className="block values-headline-line">Journey.</span>
+              <h2 className="text-[34px] md:text-[52px] lg:text-[68px] xl:text-[76px] font-sans font-black text-gray-950 leading-[0.95] lg:leading-[1] tracking-tightest uppercase">
+                <span className="block about-headline-line">Your Trusted</span>
+                <span className="block about-headline-line text-primary italic font-serif font-light lowercase normal-case py-1">travel</span>
+                <span className="block about-headline-line">Consultant.</span>
               </h2>
-              <p className="text-[13px] lg:text-xl text-gray-600 leading-relaxed max-w-[540px] font-medium tracking-tight opacity-90">
-                At Jade Tours and Travels, we don&apos;t just plan trips; we curate legacies of exploration. Our values are the foundation of every bespoke experience we craft.
-              </p>
+              <div className="space-y-6">
+                <p className="text-[15px] lg:text-2xl text-gray-700 leading-relaxed font-semibold tracking-tight">
+                  At Jade Tours & Travels, we believe every journey should be smooth, memorable, and stress-free.
+                </p>
+                <p className="text-[14px] lg:text-[18px] text-gray-500 leading-relaxed max-w-[640px] font-medium tracking-tight">
+                  From expert air ticketing to customized holiday planning, we provide reliable travel assistance tailored exactly to your needs. With over 15 years of industry experience, our team is dedicated to making your travel dreams a reality.
+                </p>
+              </div>
             </div>
 
-            <div className="values-grid space-y-4 lg:space-y-8">
-              {benefits.map((benefit, i) => (
-                <div 
-                  key={i} 
-                  className="value-tile flex flex-col sm:flex-row gap-5 lg:gap-8 group p-6 lg:p-8 rounded-[28px] lg:rounded-[48px] bg-gray-50/50 border border-gray-100 hover:bg-white hover:shadow-[0_40px_120px_rgba(56,142,60,0.1)] transition-all duration-1000 relative overflow-hidden active:scale-[0.98]"
-                >
-                  {/* Editorial Background Motif */}
-                  <span className="absolute -top-4 -left-4 font-serif font-black text-6xl lg:text-[100px] text-gray-950/[0.02] group-hover:text-primary/[0.04] transition-all duration-1000 leading-none tracking-tightest pointer-events-none select-none uppercase z-0 italic">
-                    {benefit.title[0]}
-                  </span>
-
-                  <div className="w-12 h-12 lg:w-20 lg:h-20 rounded-[20px] lg:rounded-[32px] bg-white flex items-center justify-center text-primary shrink-0 group-hover:bg-primary group-hover:text-white transition-all duration-1000 shadow-sm group-hover:-translate-y-2 transform group-hover:rotate-12 border border-gray-100 relative z-10">
-                    <benefit.icon className="w-6 h-6 lg:w-10 lg:h-10" />
+            <div className="mission-list space-y-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-[1px] w-12 bg-primary/20" />
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">Our Mission</span>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+                {[
+                  { title: "Smooth Journeys", desc: "Handling every detail so you don't have to.", icon: Compass },
+                  { title: "Personalized Plans", desc: "Trips designed around your style and budget.", icon: Globe2 },
+                  { title: "Total Reliability", desc: "Trusted by thousands for transparent service.", icon: Shield },
+                  { title: "24/7 Assistance", desc: "We are always here when you need us.", icon: CheckCircle2 }
+                ].map((point, i) => (
+                  <div key={i} className="mission-point group flex items-start gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors duration-500">
+                    <div className="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                      <point.icon className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-sans font-black text-[13px] lg:text-base text-gray-950 uppercase mb-1">{point.title}</h3>
+                      <p className="text-[11px] lg:text-sm text-gray-500 font-medium">{point.desc}</p>
+                    </div>
                   </div>
-                  <div className="space-y-2 lg:space-y-3 relative z-10 pt-1 lg:pt-2">
-                    <h3 className="font-sans font-black text-[15px] lg:text-2xl text-gray-950 group-hover:text-primary transition-colors duration-700 tracking-tightest uppercase leading-none">{benefit.title}</h3>
-                    <p className="text-gray-500 leading-relaxed max-w-[480px] text-[12px] lg:text-lg font-medium tracking-tight group-hover:text-gray-700 transition-colors duration-700">
-                      {benefit.desc}
-                    </p>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
-            <div className="pt-4 lg:pt-8 flex flex-wrap items-center gap-6 lg:gap-12">
+            <div className="pt-4 flex flex-wrap items-center gap-6 lg:gap-10">
               <MagneticButton 
+                onClick={() => {
+                  const message = encodeURIComponent("Hello Jade Tours & Travel! I want to plan an amazing journey.");
+                  window.open(`https://wa.me/919825438324?text=${message}`, '_blank');
+                }}
                 className="w-full sm:w-auto px-10 py-5 lg:px-14 lg:py-6 bg-primary text-white font-black rounded-full shadow-[0_20px_60px_rgba(56,142,60,0.3)] hover:bg-primary-dark transition-all text-[11px] lg:text-xs uppercase tracking-[0.4em] relative overflow-hidden group active:scale-95"
               >
                 <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                <span className="relative z-10">Start Your Legacy</span>
+                <span className="relative z-10">Start Your Journey</span>
               </MagneticButton>
-              <button className="w-full sm:w-auto text-gray-400 font-black uppercase tracking-[0.3em] text-[10px] lg:text-[11px] hover:text-primary transition-all flex items-center justify-center sm:justify-start gap-4 group">
-                <span>View Collections</span>
+              <button 
+                onClick={() => {
+                  const element = document.getElementById('services');
+                  element?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="w-full sm:w-auto text-gray-400 font-black uppercase tracking-[0.3em] text-[10px] lg:text-[11px] hover:text-primary transition-all flex items-center justify-center sm:justify-start gap-4 group"
+              >
+                <span>Our Services</span>
                 <div className="w-12 h-[1px] bg-gray-200 relative overflow-hidden">
                   <div className="absolute inset-0 bg-primary -translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
                 </div>
@@ -196,56 +149,26 @@ export default function ValuesSection() {
             </div>
           </div>
 
-          {/* Image Side: The Atmosphere */}
-          <div ref={imagesRef} className="w-full lg:w-1/2 relative h-[450px] md:h-[600px] lg:h-[800px] flex items-center justify-center mt-16 lg:mt-0">
-            {/* Background cinematic depth */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-primary/5 rounded-full blur-[100px] md:blur-[160px] -z-10 animate-pulse" />
-
-            {/* Premium Polaroid 1 */}
-            <div 
-              className="polaroid-card polaroid-parallax-1 absolute top-0 left-4 md:left-0 w-[170px] md:w-[320px] lg:w-[420px] bg-white p-3.5 md:p-6 pb-12 md:pb-20 lg:pb-32 shadow-[0_30px_100px_rgba(0,0,0,0.1)] border border-gray-50 cursor-pointer z-20 hover:z-40 group"
-            >
-              <div className="relative w-full aspect-[4/5] overflow-hidden rounded-lg md:rounded-2xl bg-gray-100">
-                <Image 
-                  src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=1200&auto=format&fit=crop" 
-                  alt="Awaited Memories" 
-                  fill 
-                  className="object-cover transition-all duration-[2s] group-hover:scale-110 group-hover:rotate-2" 
-                />
-              </div>
-              <div className="mt-4 md:mt-10 space-y-1 lg:space-y-2 text-center">
-                <p className="text-gray-950 font-serif italic text-base md:text-3xl lg:text-4xl tracking-tightest opacity-95 leading-tight">Santorini, Greece</p>
-                <p className="text-[8px] md:text-[10px] font-black text-primary uppercase tracking-[0.3em] lg:tracking-[0.5em] opacity-50 group-hover:opacity-100 transition-opacity duration-700">The Ultimate Escape</p>
+          {/* Visual Side */}
+          <div ref={imageRef} className="w-full lg:w-2/5 relative">
+            <div className="relative aspect-[4/5] rounded-[32px] lg:rounded-[48px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] border border-gray-100 group">
+              <Image 
+                src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2400&auto=format&fit=crop" 
+                alt="Jade Tours Travel Expert Desk" 
+                fill 
+                className="object-cover transition-all duration-[4s] ease-out group-hover:scale-110 duration-700" 
+              />              <div className="absolute inset-0 bg-gradient-to-t from-gray-950/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+              
+              {/* Experience Badge */}
+              <div className="absolute bottom-8 left-8 bg-white/95 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-white max-w-[200px]">
+                <p className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mb-1">Experience</p>
+                <p className="text-3xl font-black text-gray-950 leading-none mb-2 tracking-tighter">15+ Years</p>
+                <p className="text-[11px] text-gray-500 font-bold leading-tight">Serving travelers with absolute excellence since 2011.</p>
               </div>
             </div>
-
-            {/* Premium Polaroid 2 */}
-            <div 
-              className="polaroid-card polaroid-parallax-2 absolute bottom-0 right-4 md:right-0 w-[190px] md:w-[360px] lg:w-[480px] bg-white p-4 md:p-8 pb-14 md:pb-24 lg:pb-36 shadow-[0_50px_120px_rgba(0,0,0,0.15)] border border-gray-50 cursor-pointer z-10 hover:z-40 group"
-            >
-              <div className="relative w-full aspect-square overflow-hidden rounded-lg md:rounded-3xl bg-gray-100">
-                <Image 
-                  src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=1200&auto=format&fit=crop" 
-                  alt="Curated Sanctuary" 
-                  fill 
-                  className="object-cover transition-all duration-[2s] group-hover:scale-110 group-hover:-rotate-2" 
-                />
-              </div>
-              <div className="mt-6 md:mt-12 space-y-1 lg:space-y-2 text-center">
-                <p className="text-gray-950 font-serif italic text-xl md:text-4xl lg:text-5xl tracking-tightest opacity-95 leading-tight">The Maldives</p>
-                <p className="text-[8px] md:text-[10px] font-black text-primary uppercase tracking-[0.3em] lg:tracking-[0.5em] opacity-50 group-hover:opacity-100 transition-opacity duration-700">Private Sanctuaries</p>
-              </div>
-            </div>
-
-            {/* Brand Excellence Seal */}
-            <div
-              className="brand-seal absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 md:w-32 md:h-32 lg:w-44 lg:h-44 bg-primary rounded-full border-[6px] md:border-[10px] border-white shadow-[0_20px_60px_rgba(56,142,60,0.4)] z-30 flex items-center justify-center transform hover:rotate-[360deg] transition-transform duration-[2s] cursor-default"
-            >
-              <div className="text-center text-white px-2 lg:px-4">
-                <div className="text-[15px] md:text-3xl lg:text-4xl font-black leading-none mb-1 md:mb-2 italic font-serif tracking-tighter">Jade</div>
-                <div className="text-[5px] md:text-[9px] lg:text-[11px] font-black uppercase tracking-[0.2em] lg:tracking-[0.4em] opacity-95">Bespoke Excellence</div>
-              </div>
-            </div>
+            
+            {/* Background Glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-primary/5 blur-[120px] -z-10 rounded-full" />
           </div>
 
         </div>

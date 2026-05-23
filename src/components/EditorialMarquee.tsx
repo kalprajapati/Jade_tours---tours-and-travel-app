@@ -94,13 +94,13 @@ export default function EditorialMarquee() {
             <div className="tape-inner-1 flex items-center gap-10 md:gap-16 px-10 will-change-transform">
               {[...Array(2)].map((_, i) => (
                 <div key={i} className="flex items-center gap-10 md:gap-16">
-                  <MarqueeChunk text="Bespoke Travel" />
+                  <MarqueeChunk text="Custom Travel" />
                   <MarqueeImage src={marqueeImages[0]} />
-                  <MarqueeChunk text="Expert Curation" italic />
+                  <MarqueeChunk text="Expert Planning" italic />
                   <MarqueeImage src={marqueeImages[1]} />
                   <MarqueeChunk text="Global Access" />
                   <MarqueeImage src={marqueeImages[2]} />
-                  <MarqueeChunk text="Unparalleled Luxury" italic />
+                  <MarqueeChunk text="Amazing Trips" italic />
                 </div>
               ))}
             </div>
@@ -113,13 +113,13 @@ export default function EditorialMarquee() {
             <div className="tape-inner-2 flex items-center gap-10 md:gap-16 px-10 -translate-x-1/2 will-change-transform">
               {[...Array(2)].map((_, i) => (
                 <div key={i} className="flex items-center gap-10 md:gap-16">
-                  <MarqueeChunk text="Private Aviation" outline />
+                  <MarqueeChunk text="Flight Booking" outline />
                   <MarqueeImage src={marqueeImages[3]} rounded />
-                  <MarqueeChunk text="Sanctuary Access" />
+                  <MarqueeChunk text="Luxury Stays" />
                   <MarqueeImage src={marqueeImages[0]} rounded />
-                  <MarqueeChunk text="Elite Concierge" outline italic />
+                  <MarqueeChunk text="24/7 Support" outline italic />
                   <MarqueeImage src={marqueeImages[1]} rounded />
-                  <MarqueeChunk text="Curated Discovery" />
+                  <MarqueeChunk text="New Adventures" />
                 </div>
               ))}
             </div>

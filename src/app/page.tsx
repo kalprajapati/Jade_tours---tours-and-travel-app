@@ -18,38 +18,32 @@ import StatsBar from "@/components/sections/StatsBar";
 
 const PopularDestinations = dynamic(() => import("@/components/sections/PopularDestinations"), { ssr: false });
 const Testimonials = dynamic(() => import("@/components/luxury/Testimonials"), { ssr: false });
+const AirTicketing = dynamic(() => import("@/components/sections/AirTicketing"), { ssr: false });
+const FAQ = dynamic(() => import("@/components/sections/FAQ"), { ssr: false });
 const CTASection = dynamic(() => import("@/components/CTASection"), { ssr: false });
 const InstagramFeed = dynamic(() => import("@/components/sections/InstagramFeed"), { ssr: false });
 
 export default function Home() {
     useEffect(() => {
-        // Advanced robust initialization
-        const handleLoad = () => {
-            ScrollTrigger.refresh(true); // Force a complete recalculation
-        };
+        // Optimized ScrollTrigger refresh logic
+        const handleRefresh = () => ScrollTrigger.refresh();
 
-        if (document.readyState === 'complete') {
-            handleLoad();
-        } else {
-            window.addEventListener('load', handleLoad);
-        }
+        const timer = setTimeout(() => {
+            handleRefresh();
+        }, 1200);
 
-        // More frequent refreshes during the first few seconds to catch dynamic content (like lazy loaded images)
-        const timers = [500, 1000, 2000, 3000].map(ms => setTimeout(() => ScrollTrigger.refresh(true), ms));
-        
-        // Listen for all image loads in case native lazy loading delays them
+        // Listen for image loads to recalculate heights only when needed
         const images = document.querySelectorAll('img');
-        const imgLoadHandler = () => ScrollTrigger.refresh();
         images.forEach(img => {
             if (!img.complete) {
-                img.addEventListener('load', imgLoadHandler);
+                img.addEventListener('load', handleRefresh);
             }
         });
 
         return () => {
-            window.removeEventListener('load', handleLoad);
-            timers.forEach(clearTimeout);
-            images.forEach(img => img.removeEventListener('load', imgLoadHandler));
+            clearTimeout(timer);
+            images.forEach(img => img.removeEventListener('load', handleRefresh));
+            ScrollTrigger.getAll().forEach(t => t.kill());
         };
     }, []);
 
@@ -99,39 +93,41 @@ export default function Home() {
               dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <div className="relative z-30 bg-white">
-                {/* 1. Navbar handled in layout */}
-
-                {/* 2. Hero Section */}
+                {/* 1. Hero Section */}
                 <Hero />
 
-                {/* 4. Trust Section */}
-                <TrustSection />
+                {/* 2. Trust Strip (Stats) */}
+                <StatsBar />
 
-                {/* 4.5 Why Choose Us (Contrast) */}
-                <WhyChooseUs />
-
-                {/* 5. Services Section (Grid) */}
-                <ServicesList />
-
-                {/* 6. Brand Values Section */}
+                {/* 3. About Section (Values) */}
                 <ValuesSection />
 
-                {/* 7. Destinations Section */}
+                {/* 4. Services Section */}
+                <ServicesList />
+
+                {/* 5. Destinations Section */}
                 <PopularDestinations />
+
+                {/* 6. Why Choose Us */}
+                <WhyChooseUs />
+
+                {/* 7. Process Section */}
+                <USP />
 
                 {/* 8. Testimonials */}
                 <Testimonials />
 
-                {/* 9. Process / Expertise */}
-                <USP />
+                {/* 9. Air Ticketing */}
+                <AirTicketing />
 
-                {/* 10. Instagram Feed */}
+                {/* 10. FAQs */}
+                <FAQ />
+
+                {/* 11. Instagram Feed (Travel Stories) */}
                 <InstagramFeed />
 
-                {/* 11. CTA Section */}
+                {/* 12. CTA Section */}
                 <CTASection />
-
-                {/* 12. Footer handled in layout */}
             </div>
         </main>
     );

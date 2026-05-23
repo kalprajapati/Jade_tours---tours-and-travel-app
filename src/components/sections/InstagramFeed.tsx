@@ -110,7 +110,7 @@ export default function InstagramFeed() {
   }, []);
 
   return (
-    <section id="journal" ref={containerRef} className="relative py-16 lg:py-28 bg-white overflow-hidden scroll-mt-24">
+    <section id="stories" ref={containerRef} className="relative py-12 lg:py-28 bg-white overflow-hidden scroll-mt-24">
       {/* Cinematic Background Atmosphere */}
       <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_90%_10%,rgba(56,142,60,0.02),transparent_60%)] pointer-events-none" />
       <div className="journal-bg-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] bg-primary/[0.01] rounded-full blur-[180px] pointer-events-none" />
@@ -122,16 +122,16 @@ export default function InstagramFeed() {
           <div className="max-w-3xl space-y-6">
             <div className="flex items-center gap-3 text-primary font-black uppercase tracking-[0.6em] text-[10px] lg:text-[11px] mb-4">
               <span className="w-8 h-[1px] bg-primary/30" />
-              The Digital Journal
+              Travel Stories
             </div>
             <h2 className="text-[34px] md:text-[52px] lg:text-[68px] xl:text-[80px] font-sans font-black text-gray-950 leading-[0.95] lg:leading-[1] tracking-tightest uppercase">
-              <span className="block journal-headline-line">Glimpses Of</span>
-              <span className="block journal-headline-line text-primary italic font-serif font-light lowercase normal-case py-1">hidden</span>
-              <span className="block journal-headline-line">Worlds.</span>
+              <span className="block journal-headline-line">Moments From</span>
+              <span className="block journal-headline-line text-primary italic font-serif font-light lowercase normal-case py-1">our</span>
+              <span className="block journal-headline-line">Journeys.</span>
             </h2>
-          </div>
-          
-          <div className="flex flex-col items-center lg:items-end gap-5">
+            </div>
+
+            <div className="flex flex-col items-center lg:items-end gap-5">
             <div className="flex items-center gap-4 px-6 py-3 bg-white rounded-[24px] border border-gray-100 shadow-lg backdrop-blur-xl">
               <div className="flex flex-col items-center sm:items-start">
                 <span className="text-xl lg:text-3xl font-sans font-black text-gray-950 leading-none tracking-tightest">50K+</span>
@@ -144,11 +144,10 @@ export default function InstagramFeed() {
               </div>
             </div>
             <p className="text-[9px] lg:text-[11px] font-bold text-gray-400 uppercase tracking-[0.4em] lg:text-right text-center max-w-[280px]">
-              Curated daily snapshots of the world&apos;s most exclusive sanctuaries.
+              Daily photos from the most beautiful places we visit.
             </p>
-          </div>
-        </div>
-
+            </div>
+            </div>
         {/* Mosaic Editorial Grid */}
         <div className="journal-grid grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12">
           
@@ -162,7 +161,7 @@ export default function InstagramFeed() {
                 src={item.src} 
                 alt={item.title} 
                 fill 
-                className="object-cover transition-transform duration-[4s] group-hover:scale-105 ease-out"
+                className="object-cover transition-all duration-[4s] ease-out lg:group-hover:scale-105 duration-700"
               />
               
               {/* Complex Overlays */}
@@ -184,8 +183,8 @@ export default function InstagramFeed() {
                     &ldquo;{item.hook}&rdquo;
                   </p>
                   
-                  <div className="flex items-center justify-center gap-3 px-8 py-4 bg-white text-gray-950 font-black rounded-full transition-all shadow-3xl hover:bg-primary hover:text-white shrink-0 uppercase tracking-[0.25em] text-[10px]">
-                    <span>Read Journal</span>
+                  <div className="flex items-center justify-center gap-3 px-8 py-4 bg-white text-gray-950 font-black rounded-full transition-all shadow-3xl lg:hover:bg-primary lg:hover:text-white shrink-0 uppercase tracking-[0.25em] text-[10px]">
+                    <span>Read Stories</span>
                     <ArrowUpRight className="w-4 h-4" />
                   </div>
                 </div>
@@ -214,18 +213,18 @@ export default function InstagramFeed() {
                   src={item.src} 
                   alt={item.title} 
                   fill 
-                  className="object-cover transition-transform duration-[3s] group-hover:scale-110 ease-out"
+                  className="object-cover transition-all duration-[3s] ease-out lg:group-hover:scale-110 duration-700"
                 />
                 
                 {/* Compact Cinematic Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#050807] via-transparent to-transparent opacity-70 group-hover:opacity-95 transition-opacity duration-1000" />
                 
                 <div className="absolute bottom-0 left-0 w-full p-4 sm:p-8 text-white z-30 space-y-2 lg:space-y-4">
-                  <div className="flex items-center gap-2 text-primary text-[8px] lg:text-[10px] font-black uppercase tracking-[0.3em] opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-700">
+                  <div className="flex items-center gap-2 text-primary text-[8px] lg:text-[10px] font-black uppercase tracking-[0.3em] lg:opacity-0 lg:group-hover:opacity-100 lg:translate-y-4 lg:group-hover:translate-y-0 transition-all duration-700">
                     <MapPin className="w-3 h-3" />
                     {item.location.split(',')[0]}
                   </div>
-                  <h4 className="text-[15px] lg:text-3xl font-sans font-black leading-none tracking-tightest uppercase group-hover:text-primary transition-colors duration-700">{item.title}</h4>
+                  <h4 className="text-[15px] lg:text-3xl font-sans font-black leading-none tracking-tightest uppercase lg:group-hover:text-primary transition-colors duration-700">{item.title}</h4>
                 </div>
               </div>
             ))}
@@ -237,7 +236,7 @@ export default function InstagramFeed() {
         <div className="mt-16 lg:mt-32 flex flex-col items-center text-center space-y-10 lg:space-y-12">
           <div className="relative p-1.5 lg:p-2 bg-gray-50 rounded-[32px] border border-gray-100 shadow-inner">
             <MagneticButton className="px-10 py-5 lg:px-20 lg:py-8 bg-[#050807] hover:bg-primary text-white font-black rounded-[28px] lg:rounded-[40px] flex items-center gap-6 lg:gap-8 transition-all shadow-3xl group text-[11px] lg:text-lg uppercase tracking-[0.2em] relative overflow-hidden active:scale-95">
-              <div className="absolute inset-0 bg-white/10 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+              <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
               <span className="relative z-10">Get Inspired</span>
               <div className="flex items-center justify-center w-10 h-10 lg:w-16 lg:h-16 rounded-xl lg:rounded-[24px] bg-white/10 group-hover:bg-white/20 transition-all relative z-10">
                 <Instagram className="w-5 h-5 lg:w-10 lg:h-10 text-accent-gold" />

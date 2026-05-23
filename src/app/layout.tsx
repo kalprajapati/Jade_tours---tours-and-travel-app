@@ -24,13 +24,13 @@ const dancing = Dancing_Script({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jadetravels.co.in"),
-  title: "Jade Tours & Travel | The Art of Effortless Exploration",
-  description: "Bespoke global travel, passport, and visa services tailored for the discerning traveler. 15+ years of discretion and excellence in Ahmedabad, Gujarat.",
-  keywords: ["luxury travel", "visa assistance", "passport services", "bespoke tours", "Jade Travels", "Jigar Shah", "Dhara Patel", "Ahmedabad travel agency"],
+  title: "Jade Tours & Travel | Expert Travel, Passport & Visa Services",
+  description: "Expert global travel, passport, and visa services. 15+ years of excellence in Ahmedabad, Gujarat.",
+  keywords: ["travel agency", "visa assistance", "passport services", "custom tours", "Jade Travels", "Jigar Shah", "Dhara Patel", "Ahmedabad travel agency"],
   authors: [{ name: "Jade Tours & Travel" }],
   openGraph: {
-    title: "Jade Tours & Travel | The Art of Effortless Exploration",
-    description: "Curated itineraries and seamless global access. Bespoke travel services for the modern nomad.",
+    title: "Jade Tours & Travel | Perfect Trips Every Time",
+    description: "Custom plans and expert travel support. Travel with confidence with Jade Tours & Travel.",
     images: [{
       url: "/assets/image.png",
       width: 1200,
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Jade Tours & Travel",
-    description: "Bespoke global travel, passport, and visa services.",
+    description: "Expert global travel, passport, and visa services.",
     images: ["/assets/image.png"],
   },
   robots: {

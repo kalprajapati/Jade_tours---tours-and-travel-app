@@ -13,37 +13,37 @@ if (typeof window !== "undefined") {
 const services = [
   {
     id: "01",
-    title: "Architectural Curation",
-    tagline: "Bespoke Itineraries",
-    desc: "We don't just plan trips; we architect life-changing experiences tailored to your personal rhythm and curiosities.",
-    details: ["Private Vatican Access", "Dinner with Local Legends", "Custom Scouting"],
+    title: "Custom Trip Planning",
+    tagline: "Personalized Plans",
+    desc: "We don't just book tickets; we create amazing travel experiences tailored to your style and interests.",
+    details: ["VIP Sightseeing", "Exclusive Dining", "Special Activities"],
     icon: Map,
     image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=1200&auto=format&fit=crop"
   },
   {
     id: "02",
-    title: "Seamless Global Access",
-    tagline: "Elite Logistics",
-    desc: "First-class isn't just a ticket; it's a standard of movement. We ensure every transition is invisible.",
-    details: ["Tarmac Transfers", "Private Terminal Access", "Discreet Security"],
+    title: "Seamless Travel",
+    tagline: "Easy Logistics",
+    desc: "From flights to local transport, we handle everything so you can just enjoy your trip.",
+    details: ["Fast-track Airport help", "Private Transfers", "Expert Support"],
     icon: Compass,
     image: "https://images.unsplash.com/photo-1544016768-982d1554f0b9?q=80&w=1200&auto=format&fit=crop"
   },
   {
     id: "03",
-    title: "Sanctuary Selection",
-    tagline: "Elite Stays",
-    desc: "We provide access to the world's most secluded hideaways, from private islands to historic estates.",
-    details: ["Vetted Private Villas", "Historic Estates", "Island Buyouts"],
+    title: "Luxury Stays",
+    tagline: "Hand-picked Hotels",
+    desc: "We find the best places for you to stay, from boutique hotels to luxury resorts.",
+    details: ["Vetted Villas", "Luxury Resorts", "Unique Stays"],
     icon: Home,
     image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=1200&auto=format&fit=crop"
   },
   {
     id: "04",
-    title: "Invisible Concierge",
-    tagline: "24/7 Support",
-    desc: "Expert assistance that anticipates your needs before you've even voiced them.",
-    details: ["Real-time Adjustment", "Global Expertise", "Proactive Planning"],
+    title: "24/7 Support",
+    tagline: "Expert Help",
+    desc: "Our team is available anytime to help with your requests and ensure a smooth journey.",
+    details: ["Instant Assistance", "Local Expertise", "Full Care"],
     icon: Sparkles,
     image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1200&auto=format&fit=crop"
   }
@@ -98,10 +98,7 @@ export default function ServicesGrid() {
   }, [mounted]);
 
   const handleInquiryClick = (service: typeof services[0]) => {
-    const message = `Hello Jade Atelier! I am inquiring about the ${service.title} service.\n\n` +
-      `✨ SERVICE: ${service.title}\n` +
-      `🏷️ TAGLINE: ${service.tagline}\n` +
-      `📝 DESCRIPTION: ${service.desc}\n\n` +
+    const message = `Hello Jade Tours & Travel! I'm interested in the ${service.title} service.\n\n` +
       `I would like to know more about the details including: ${service.details.join(", ")}.`;
     
     const encodedMessage = encodeURIComponent(message);
@@ -109,8 +106,8 @@ export default function ServicesGrid() {
   };
 
   const handleConsultClick = () => {
-    const message = `Hello Jade Atelier! I would like to book a private consult for my next journey.\n\n` +
-      `I am interested in your bespoke travel curation and private access services.`;
+    const message = `Hello Jade Tours & Travel! I would like to talk to an expert about my next trip.\n\n` +
+      `I am interested in your custom travel planning and support services.`;
     
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/919825438324?text=${encodedMessage}`, '_blank');
@@ -131,7 +128,7 @@ export default function ServicesGrid() {
         <div className="flex items-center gap-3 mb-6 md:mb-12 overflow-hidden">
           <div className="w-8 h-[1px] bg-[#C1A67B]" />
           <span className="text-[#C1A67B] font-sans text-[9px] md:text-[10px] font-bold uppercase tracking-[0.4em]">
-            The Art of the Impossible
+            Expert Travel Services
           </span>
         </div>
 
@@ -177,7 +174,7 @@ export default function ServicesGrid() {
               <div className="mt-16 flex items-center gap-10 relative z-20">
                 <div className="flex flex-col gap-1.5">
                   <span className="text-[#F2EFE9]/20 text-[9px] font-bold uppercase tracking-widest">
-                    EXHIBIT {services[activeIndex].id}
+                    SERVICE {services[activeIndex].id}
                   </span>
                   <div className="w-40 h-[1px] bg-[#0B1310]/10 relative overflow-hidden">
                     <motion.div 
@@ -195,7 +192,7 @@ export default function ServicesGrid() {
                     <ArrowUpRight className="w-4 h-4 text-[#C1A67B] group-hover:text-[#0B1310]" />
                   </div>
                   <span className="text-[#F2EFE9] text-[9px] font-bold uppercase tracking-[0.3em] group-hover:translate-x-1.5 transition-transform">
-                    Inquire Details
+                    Inquire Now
                   </span>
                 </button>
               </div>
@@ -263,7 +260,7 @@ export default function ServicesGrid() {
                     className="w-full group flex items-center justify-between p-5 rounded-xl border border-[#F2EFE9]/10 bg-[#F2EFE9]/[0.02]"
                   >
                     <span className="text-[#F2EFE9] text-[9px] font-bold uppercase tracking-[0.3em]">
-                      Inquire Details
+                      Inquire Now
                     </span>
                     <div className="w-8 h-8 rounded-full border border-[#F2EFE9]/10 flex items-center justify-center group-active:bg-[#C1A67B] transition-all">
                       <ArrowUpRight className="w-3.5 h-3.5 text-[#C1A67B]" />
@@ -276,17 +273,17 @@ export default function ServicesGrid() {
             <div className="relative p-6 md:p-14 rounded-[2.5rem] md:rounded-[3.5rem] bg-gradient-to-br from-white/5 to-transparent backdrop-blur-3xl border border-[#F2EFE9]/10 overflow-hidden group">
               <div className="relative z-10 flex flex-col items-center text-center">
                 <span className="text-[#C1A67B] font-sans text-[9px] font-bold uppercase tracking-[0.4em] mb-4 md:mb-6 block">
-                  Private Access
+                  Expert Planning
                 </span>
                 <h3 className="font-serif text-2xl md:text-5xl text-[#F2EFE9] mb-6 md:mb-8 leading-tight tracking-tighter">
-                  The Journey Begins <br />
-                  <span className="italic font-light text-[#C1A67B]">with a Single Word.</span>
+                  Your Journey Starts <br />
+                  <span className="italic font-light text-[#C1A67B]">with one simple talk.</span>
                 </h3>
                 <button 
                   onClick={handleConsultClick}
                   className="group relative px-10 py-4 md:px-14 md:py-6 bg-[#C1A67B] text-[#0B1310] font-sans text-[10px] font-bold uppercase tracking-[0.3em] rounded-full overflow-hidden transition-all duration-700 hover:bg-[#0B1310] hover:text-white"
                 >
-                  <span className="relative z-10">Book a Private Consult</span>
+                  <span className="relative z-10">Talk to an Expert</span>
                 </button>
               </div>
               <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-[#C1A67B]/5 blur-[80px] rounded-full" />

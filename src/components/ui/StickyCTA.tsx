@@ -31,37 +31,42 @@ export default function StickyCTA() {
   };
 
   return (
-    <div className="fixed bottom-4 md:bottom-8 right-4 md:right-8 z-[90] flex flex-col gap-3 md:gap-4">
+    <div className="fixed bottom-5 md:bottom-8 right-5 md:right-8 z-[90] flex flex-col gap-3 md:gap-4">
       <AnimatePresence>
         {isVisible && (
           <motion.div
-            initial={{ opacity: 0, y: 40, scale: 0.8 }}
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 40, scale: 0.8 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ 
+              duration: 0.4, 
+              ease: [0.16, 1, 0.3, 1],
+              // Faster animation for mobile, standard for desktop
+            }}
             className="flex flex-col gap-3 md:gap-4"
           >
             {/* WhatsApp */}
             <a
-              href={`https://wa.me/919825438324?text=${encodeURIComponent("Hello Jade Atelier! I am seeking an elite travel consultation and would like to speak with a private concierge.")}`}
+              href={`https://wa.me/919825438324?text=${encodeURIComponent("Hello Jade Tours & Travel! I want to plan a trip and would like to speak with an expert.")}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative bg-[#25D366] text-white p-3.5 md:p-5 rounded-full shadow-[0_20px_40px_rgba(37,211,102,0.3)] transition-all duration-500 hover:scale-110 flex items-center justify-center overflow-hidden hover:shadow-[0_25px_50px_rgba(37,211,102,0.5)]"
+              className="group relative bg-[#25D366] text-white w-12 h-12 md:w-16 md:h-16 rounded-full shadow-[0_20px_40px_rgba(37,211,102,0.3)] transition-all duration-500 hover:scale-110 flex items-center justify-center overflow-hidden hover:shadow-[0_25px_50px_rgba(37,211,102,0.5)] active:scale-90"
               aria-label="Chat on WhatsApp"
             >
               {/* Inner Pulse Effect */}
               <div className="absolute inset-0 bg-white/20 animate-ping opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-              <div className="w-5 h-5 md:w-6 md:h-6">
+              <div className="w-5 h-5 md:w-6 md:h-6 relative z-10">
                 <WhatsAppIcon />
               </div>
-              <span className="max-w-0 md:group-hover:max-w-xs md:group-hover:ml-4 transition-all duration-700 ease-[0.16,1,0.3,1] overflow-hidden whitespace-nowrap font-sans text-xs font-black uppercase tracking-widest">
-                Direct Concierge
+              <span className="max-w-0 md:group-hover:max-w-xs md:group-hover:ml-4 transition-all duration-700 ease-[0.16,1,0.3,1] overflow-hidden whitespace-nowrap font-sans text-xs font-black uppercase tracking-widest relative z-10">
+                Talk to Expert
               </span>
             </a>
 
             {/* Scroll to Top */}
             <button
               onClick={scrollToTop}
-              className="bg-gray-900 text-white p-3.5 md:p-5 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-all duration-500 hover:scale-110 hover:bg-primary flex items-center justify-center border border-white/5"
+              className="bg-gray-900 text-white w-12 h-12 md:w-16 md:h-16 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.2)] transition-all duration-500 hover:scale-110 hover:bg-primary flex items-center justify-center border border-white/5 active:scale-90"
               aria-label="Scroll to top"
             >
               <ArrowUp className="w-5 h-5 md:w-6 md:h-6" />

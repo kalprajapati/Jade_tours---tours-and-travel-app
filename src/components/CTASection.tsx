@@ -19,39 +19,39 @@ export default function CTASection() {
     const ctx = gsap.context(() => {
       // Cinematic Scale-In
       gsap.fromTo(cardRef.current, 
-        { scale: 0.9, opacity: 0, y: 100 },
+        { scale: 0.95, opacity: 0, y: 50 },
         {
           scale: 1,
           opacity: 1,
           y: 0,
-          duration: 2,
-          ease: "expo.out",
+          duration: 1.2,
+          ease: "power3.out",
           scrollTrigger: {
             trigger: cardRef.current,
-            start: "top 85%",
+            start: "top 90%",
           }
         }
       );
 
       // Headline Reveal
       gsap.fromTo(".cta-headline-line", 
-        { y: 60, opacity: 0 },
+        { y: 50, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          stagger: 0.15,
-          duration: 1.5,
-          ease: "expo.out",
+          stagger: 0.1,
+          duration: 1,
+          ease: "power3.out",
           scrollTrigger: {
             trigger: cardRef.current,
-            start: "top 70%",
+            start: "top 80%",
           }
         }
       );
 
       // Background Zoom
       gsap.fromTo(".cta-bg-image", 
-        { scale: 1.2 },
+        { scale: 1.1 },
         {
           scale: 1,
           scrollTrigger: {
@@ -65,16 +65,16 @@ export default function CTASection() {
 
       // Icons Entrance
       gsap.fromTo(".cta-icon-module", 
-        { scale: 0, rotate: -180 },
+        { scale: 0, rotate: -90 },
         {
           scale: 1,
           rotate: 0,
-          stagger: 0.1,
-          duration: 1.5,
-          ease: "back.out(1.7)",
+          stagger: 0.08,
+          duration: 1,
+          ease: "back.out(1.5)",
           scrollTrigger: {
             trigger: cardRef.current,
-            start: "top 65%",
+            start: "top 85%",
           }
         }
       );
@@ -83,28 +83,22 @@ export default function CTASection() {
     return () => ctx.revert();
   }, []);
 
-  const handleCommissionClick = () => {
-    const message = `Hello Jade Atelier! I am ready to write my legacy and commission a journey.\n\n` +
-      `I am interested in joining your elite circle of global explorers and would like to start a private consultation for a bespoke travel experience.`;
-    
-    const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/919825438324?text=${encodedMessage}`, '_blank');
+  const handleWhatsAppClick = () => {
+    const message = encodeURIComponent("Hello Jade Tours & Travel! I am ready to plan my next journey.");
+    window.open(`https://wa.me/919825438324?text=${message}`, '_blank');
   };
 
-  const handleConciergeClick = () => {
-    const message = `Hello Jade Atelier! I am inquiring about your Private Concierge services.\n\n` +
-      `I would like to know more about the elite support and global access you provide to your clients.`;
-    
-    const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/919825438324?text=${encodedMessage}`, '_blank');
+  const handleCallbackClick = () => {
+    const message = encodeURIComponent("Hello Jade Tours & Travel! I would like to request a callback to discuss my travel plans.");
+    window.open(`https://wa.me/919825438324?text=${message}`, '_blank');
   };
 
   return (
-    <section id="contact" ref={containerRef} className="py-16 lg:py-28 bg-white overflow-hidden scroll-mt-24">
+    <section id="contact" ref={containerRef} className="py-12 lg:py-32 bg-white overflow-hidden scroll-mt-24">
       <div className="container-custom">
         <div 
           ref={cardRef}
-          className="relative bg-[#050807] rounded-[48px] lg:rounded-[80px] overflow-hidden p-8 lg:p-16 text-center text-white shadow-[0_80px_160px_rgba(0,0,0,0.6)] group border border-white/5"
+          className="relative bg-[#050807] rounded-[48px] lg:rounded-[80px] overflow-hidden p-6 lg:p-16 text-center text-white shadow-[0_80px_160px_rgba(0,0,0,0.6)] group border border-white/5"
         >
           
           {/* Cinematic Immersive Background */}
@@ -112,22 +106,14 @@ export default function CTASection() {
             <div className="relative w-full h-full cta-bg-image">
               <Image 
                 src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2400&auto=format&fit=crop" 
-                alt="The Ultimate Horizon"
+                alt="Beautiful Horizon"
                 fill
                 className="object-cover opacity-30 mix-blend-luminosity"
               />
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-[#050807] via-transparent to-[#050807]/60" />
-            {/* Animated Grain */}
             <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
           </div>
-
-          {/* Luxury Atmospheric Depth */}
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/[0.15] rounded-full blur-[160px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-accent-gold/[0.08] rounded-full blur-[140px] translate-y-1/2 -translate-x-1/3 pointer-events-none" />
-
-          {/* Precision Rim Light */}
-          <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-[48px] lg:rounded-[80px] z-20 pointer-events-none" />
 
           <div className="cta-content relative z-10 flex flex-col items-center space-y-12 lg:space-y-16">
             
@@ -147,46 +133,45 @@ export default function CTASection() {
             <div className="space-y-8">
               <div className="flex items-center justify-center gap-4 text-primary font-black uppercase tracking-[0.6em] text-[10px] lg:text-[11px] mb-4">
                 <span className="w-8 h-[1px] bg-primary/30" />
-                The Final Curation
+                Plan Your Journey
                 <span className="w-8 h-[1px] bg-primary/30" />
               </div>
               
               <h2 className="text-[34px] md:text-[56px] lg:text-[76px] xl:text-[92px] font-sans font-black leading-[0.95] lg:leading-[1] tracking-tightest uppercase max-w-6xl">
-                <span className="block cta-headline-line">Ready To Write</span>
-                <span className="block cta-headline-line text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-primary/40 italic font-serif font-light lowercase normal-case py-1">your</span>
-                <span className="block cta-headline-line">Legacy?</span>
+                <span className="block cta-headline-line">Let&apos;s Plan Your</span>
+                <span className="block cta-headline-line text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-primary/40 italic font-serif font-light lowercase normal-case py-1">next</span>
+                <span className="block cta-headline-line">Journey.</span>
               </h2>
               
               <p className="text-gray-400 text-[13px] lg:text-xl max-w-2xl mx-auto leading-relaxed font-medium tracking-tight opacity-90">
-                Join our elite circle of global explorers. Experience the world through a lens of absolute luxury and surgical precision. Your private consultation is the first step toward the impossible.
+                Whether it&apos;s a holiday, honeymoon, family trip, or business travel — we&apos;re here to make it seamless.
               </p>
             </div>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 lg:gap-12 w-full max-w-3xl mx-auto">
               <MagneticButton 
-                onClick={handleCommissionClick}
+                onClick={handleWhatsAppClick}
                 className="w-full sm:w-auto px-10 py-5 lg:px-20 lg:py-8 bg-primary text-white font-black rounded-2xl lg:rounded-[32px] flex items-center justify-center gap-4 lg:gap-6 transition-all shadow-[0_30px_70px_rgba(56,142,60,0.4)] group text-[11px] lg:text-sm uppercase tracking-[0.3em] relative overflow-hidden active:scale-95"
               >
                 <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
-                <span className="relative z-10">Commission Your Journey</span>
-                <ArrowRight className="w-5 h-5 lg:w-8 lg:h-8 group-hover:translate-x-3 lg:group-hover:translate-x-4 transition-transform duration-700 relative z-10" />
+                <span className="relative z-10">WhatsApp Now</span>
+                <MessageCircle className="w-5 h-5 lg:w-8 lg:h-8 relative z-10 group-hover:scale-110 transition-transform duration-700" />
               </MagneticButton>
 
               <MagneticButton 
-                onClick={handleConciergeClick}
+                onClick={handleCallbackClick}
                 className="w-full sm:w-auto px-10 py-5 lg:px-20 lg:py-8 bg-white/5 backdrop-blur-3xl text-white font-black rounded-2xl lg:rounded-[32px] border border-white/10 flex items-center justify-center gap-4 lg:gap-6 transition-all hover:bg-white/10 hover:border-primary/40 text-[11px] lg:text-sm uppercase tracking-[0.3em] shadow-3xl active:scale-95"
               >
-                <span className="relative z-10">Private Concierge</span>
+                <span className="relative z-10">Request Callback</span>
                 <Phone className="w-4 h-4 lg:w-7 lg:h-7 text-accent-gold group-hover:rotate-12 transition-transform" />
               </MagneticButton>
             </div>
 
-            {/* Recognition Footer */}
             <div className="pt-8 lg:pt-20 flex flex-wrap justify-center items-center gap-6 lg:gap-20 opacity-40 group-hover:opacity-70 transition-opacity duration-1000">
               {[
-                { label: "Expert Curation", icon: Sparkles },
-                { label: "Global Access", icon: Globe },
-                { label: "Zero Friction", icon: Compass }
+                { label: "Holiday", icon: Sparkles },
+                { label: "Business", icon: Globe },
+                { label: "Family", icon: Compass }
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center gap-2.5">
                   <item.icon className="w-3.5 h-3.5 lg:w-5 lg:h-5 text-primary" />

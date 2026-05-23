@@ -8,14 +8,13 @@ import { useLenis } from "@studio-freight/react-lenis";
 import gsap from "gsap";
 
 const navLinks = [
-  { name: "About", href: "#trust" },
-  { name: "Why Us", href: "#why-us" },
+  { name: "About", href: "#about" },
   { name: "Services", href: "#services" },
-  { name: "Values", href: "#values" },
-  { name: "Collection", href: "#packages" },
+  { name: "Destinations", href: "#destinations" },
+  { name: "Why Us", href: "#why-us" },
+  { name: "Process", href: "#process" },
   { name: "Reviews", href: "#testimonials" },
-  { name: "Expertise", href: "#process" },
-  { name: "Journal", href: "#journal" },
+  { name: "Stories", href: "#stories" },
 ];
 
 export default function Navbar() {
@@ -48,36 +47,41 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
   useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: "-10% 0px -80% 0px",
-      threshold: 0,
-    };
+    const handleActiveSection = () => {
+      const ids = [...navLinks.map(l => l.href.replace("#", "")), "home"];
+      const scrollPos = window.scrollY + 150; // Precise offset
 
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
+      // Find all sections and their positions
+      const sectionPositions = ids.map(id => {
+        const element = document.getElementById(id);
+        if (element) {
+          return { id, top: element.offsetTop };
         }
-      });
+        return null;
+      }).filter(Boolean) as { id: string, top: number }[];
+
+      // Sort by top position
+      sectionPositions.sort((a, b) => b.top - a.top);
+
+      // Find the first section that is above the scroll position
+      for (const section of sectionPositions) {
+        if (scrollPos >= section.top) {
+          setActiveSection(section.id);
+          break;
+        }
+      }
     };
 
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    navLinks.forEach((link) => {
-      const element = document.getElementById(link.href.replace("#", ""));
-      if (element) observer.observe(element);
-    });
-
-    return () => observer.disconnect();
+    window.addEventListener("scroll", handleActiveSection);
+    setTimeout(handleActiveSection, 1000);
+    
+    return () => window.removeEventListener("scroll", handleActiveSection);
   }, []);
-
   const handleContactClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    const message = `Hello Jade Atelier! I am inquiring about your Private Concierge services.\n\n` +
-      `I would like to speak with a travel architect about my upcoming travel plans.`;
+    const message = `Hello Jade Tours & Travel! I want to plan a trip.\n\n` +
+      `I would like to speak with a travel expert about my upcoming plans.`;
     
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/919825438324?text=${encodedMessage}`, '_blank');
@@ -91,7 +95,7 @@ export default function Navbar() {
         className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ease-in-out ${
           isScrolled 
             ? "bg-white/90 backdrop-blur-xl py-3 lg:py-4 shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-b border-gray-100" 
-            : "bg-transparent py-5 lg:py-10"
+            : "bg-white/10 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-0 py-4 lg:py-10"
         }`}
       >
         <div className="container-custom flex items-center justify-between">
@@ -106,9 +110,9 @@ export default function Navbar() {
               <Globe className="w-7 h-7 lg:w-10 lg:h-10" strokeWidth={1.2} />
             </div>
             <div className="flex flex-col">
-              <span className="text-lg lg:text-2xl font-sans font-black tracking-tighter leading-none text-gray-950">JADE</span>
-              <span className="text-[6px] lg:text-[8px] font-black uppercase tracking-[0.4em] leading-none mt-1 text-gray-400">
-                Atelier Of Travel
+              <span className={`text-lg lg:text-2xl font-sans font-black tracking-tighter leading-none transition-colors duration-500 ${isScrolled ? "text-gray-950" : "text-gray-950 lg:text-gray-950"}`}>JADE</span>
+              <span className={`text-[6px] lg:text-[8px] font-black uppercase tracking-[0.4em] leading-none mt-1 transition-colors duration-500 ${isScrolled ? "text-gray-400" : "text-gray-500 lg:text-gray-400"}`}>
+                Tours & Travel
               </span>
             </div>
           </Link>
@@ -155,7 +159,7 @@ export default function Navbar() {
               className="flex items-center gap-2 px-6 py-3 font-black text-[10px] uppercase tracking-[0.2em] rounded-full transition-all border border-gray-100 shadow-[0_5px_15px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_25px_rgba(0,0,0,0.06)] bg-white text-gray-950 group"
             >
               <Phone className="w-3.5 h-3.5 text-gray-950 group-hover:rotate-12 transition-transform" strokeWidth={2.5} />
-              <span>Private Concierge</span>
+              <span>Travel Expert</span>
             </button>
           </div>
 
@@ -196,7 +200,7 @@ export default function Navbar() {
                  </div>
                  <div className="flex flex-col">
                    <span className="text-xl font-black tracking-tighter leading-none">JADE</span>
-                   <span className="text-[6px] font-black uppercase tracking-[0.4em] leading-none mt-1.5 text-gray-400">Atelier of Travel</span>
+                   <span className="text-[6px] font-black uppercase tracking-[0.4em] leading-none mt-1.5 text-gray-400">Tours & Travel</span>
                  </div>
               </div>
               <button 
@@ -208,26 +212,31 @@ export default function Navbar() {
             </div>
 
             <div className="relative z-10 flex flex-col gap-5 overflow-y-auto no-scrollbar py-2">
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.name}
-                  initial={{ x: -30, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.1 + i * 0.05, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <Link
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
-                    className="text-[28px] font-black tracking-tightest uppercase flex items-center justify-between group py-3 border-b border-white/5"
+              {navLinks.map((link, i) => {
+                const id = link.href.replace("#", "");
+                const isActive = activeSection === id;
+
+                return (
+                  <motion.div
+                    key={link.name}
+                    initial={{ x: -30, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.1 + i * 0.05, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                   >
-                    <div className="flex items-center gap-4">
-                      <span className="text-primary text-xs font-black tracking-widest">{String(i+1).padStart(2, '0')}</span>
-                      <span className="group-active:text-primary transition-colors duration-300">{link.name}</span>
-                    </div>
-                    <ArrowUpRight className="w-5 h-5 text-white/10 group-active:text-primary transition-all" />
-                  </Link>
-                </motion.div>
-              ))}
+                    <Link
+                      href={link.href}
+                      onClick={(e) => handleNavClick(e, link.href)}
+                      className={`text-[28px] font-black tracking-tightest uppercase flex items-center justify-between group py-3 border-b border-white/5 transition-colors ${isActive ? "text-primary" : "text-white"}`}
+                    >
+                      <div className="flex items-center gap-4">
+                        <span className={`text-xs font-black tracking-widest ${isActive ? "text-primary" : "text-primary/40"}`}>{String(i+1).padStart(2, '0')}</span>
+                        <span className="transition-colors duration-300">{link.name}</span>
+                      </div>
+                      <ArrowUpRight className={`w-5 h-5 transition-all ${isActive ? "text-primary translate-x-1 -translate-y-1" : "text-white/10"}`} />
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </div>
 
             <div className="relative z-10 mt-auto pt-10 pb-4 space-y-8">
@@ -241,7 +250,7 @@ export default function Navbar() {
                   className="w-full flex items-center justify-center gap-3 px-8 py-5 bg-primary text-white font-black rounded-2xl text-sm shadow-[0_25px_50px_rgba(56,142,60,0.3)] uppercase tracking-[0.25em] active:scale-[0.97] transition-all"
                 >
                   <Phone size={18} strokeWidth={2.5} />
-                  Start Your Legacy
+                  Book Now
                 </button>
               </motion.div>
               

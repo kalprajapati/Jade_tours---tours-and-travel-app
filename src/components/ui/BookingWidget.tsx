@@ -5,19 +5,20 @@ import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 
 const tabs = [
-  { id: "flights", label: "Air Travel", icon: Plane },
-  { id: "hotels", label: "Sanctuaries", icon: Hotel },
-  { id: "packages", label: "Experiences", icon: Package },
-  { id: "visa", label: "Protocols", icon: Landmark },
+  { id: "flights", label: "Flights", icon: Plane },
+  { id: "hotels", label: "Hotels", icon: Hotel },
+  { id: "packages", label: "Tour Packages", icon: Package },
+  { id: "visa", label: "Visa Help", icon: Landmark },
 ];
 
 const subTypeOptions: Record<string, string[]> = {
-  hotels: ["Luxury Resort", "Boutique Atelier", "Island Hideaway"],
-  visa: ["Golden Visa", "Business Class", "Tourist Elite"],
-  packages: ["Bespoke Tour", "Private Jet Journey", "Safari Suite"],
+  hotels: ["Luxury Resort", "Boutique Hotel", "Private Villa"],
+  visa: ["Visitor Visa", "Business Visa", "Study Visa"],
+  packages: ["Custom Tour", "Group Package", "Family Trip"],
 };
 
 export default function BookingWidget() {
+  const [mounted, setMounted] = useState(false);
   const [activeTab, setActiveTab] = useState("flights");
   const [tripType, setTripType] = useState("one-way");
   const [formData, setFormData] = useState({
@@ -25,13 +26,14 @@ export default function BookingWidget() {
     to: "",
     departure: "",
     returnDate: "",
-    travellers: "1 Explorer, First Class",
+    travellers: "1 Traveler",
     subType: "" 
   });
   
   const widgetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setMounted(true);
     const handleMouseMove = (e: MouseEvent) => {
       if (!widgetRef.current) return;
       const { left, top, width, height } = widgetRef.current.getBoundingClientRect();
@@ -79,39 +81,39 @@ export default function BookingWidget() {
     setFormData(prev => ({ ...prev, subType: defaults[tabId] || "" }));
   };
 
-  const isReturnDisabled = activeTab === "flights" && tripType === "one-way";
+  const isReturnDisabled = mounted && activeTab === "flights" && tripType === "one-way";
 
   const handleSearch = () => {
     const { from, to, departure, returnDate, travellers, subType } = formData;
-    let message = `Hello Jade Atelier! I am seeking ${activeTab.toUpperCase()} curation.\n\n`;
+    let message = `Hello Jade Tours & Travel! I want to plan a trip.\n\n`;
     
     if (activeTab === "flights") {
-      message += `✈️ AIR TRAVEL PROTOCOL\n` +
-        `• Status: ${tripType}\n` +
-        `• Origin: ${from}\n` +
-        `• Destination: ${to}\n` +
-        `• Departure: ${departure}\n` +
+      message += `✈️ FLIGHT BOOKING\n` +
+        `• Type: ${tripType}\n` +
+        `• From: ${from}\n` +
+        `• To: ${to}\n` +
+        `• Date: ${departure}\n` +
         (tripType !== 'one-way' ? `• Return: ${returnDate}\n` : '') +
-        `• Manifest: ${travellers}`;
+        `• Travelers: ${travellers}`;
     } else if (activeTab === "hotels") {
-      message += `🏨 SANCTUARY RESERVATION\n` +
-        `• Atelier Type: ${subType}\n` +
+      message += `🏨 HOTEL BOOKING\n` +
+        `• Stay Type: ${subType}\n` +
         `• Location: ${to}\n` +
-        `• Entry: ${departure}\n` +
-        `• Departure: ${returnDate}\n` +
-        `• Explorers: ${travellers}`;
+        `• Check-in: ${departure}\n` +
+        `• Check-out: ${returnDate}\n` +
+        `• Travelers: ${travellers}`;
     } else if (activeTab === "packages") {
-      message += `📦 CURATED EXPERIENCE\n` +
-        `• Theme: ${subType}\n` +
-        `• Anthology: ${to}\n` +
-        `• Timeline: ${departure}\n` +
-        `• Explorers: ${travellers}`;
+      message += `📦 TOUR PACKAGE\n` +
+        `• Trip Type: ${subType}\n` +
+        `• Destination: ${to}\n` +
+        `• Date: ${departure}\n` +
+        `• Travelers: ${travellers}`;
     } else if (activeTab === "visa") {
-      message += `🛂 PROTOCOL ASSISTANCE\n` +
-        `• Type: ${subType}\n` +
-        `• Territory: ${to}\n` +
-        `• Schedule: ${departure}\n` +
-        `• Manifest: ${travellers}`;
+      message += `🛂 VISA ASSISTANCE\n` +
+        `• Visa Type: ${subType}\n` +
+        `• Country: ${to}\n` +
+        `• Date: ${departure}\n` +
+        `• Travelers: ${travellers}`;
     }
     
     const encodedMessage = encodeURIComponent(message);
@@ -121,7 +123,7 @@ export default function BookingWidget() {
   return (
     <div 
       ref={widgetRef}
-      className="bg-white/95 backdrop-blur-2xl rounded-[32px] lg:rounded-[48px] p-5 lg:p-10 w-full max-w-[650px] mx-auto relative border border-white shadow-[0_50px_120px_rgba(0,0,0,0.12)] perspective-2000 transition-all duration-700"
+      className="bg-white lg:bg-white/95 backdrop-blur-2xl rounded-[32px] lg:rounded-[48px] p-5 lg:p-10 w-full max-w-[650px] mx-auto relative border border-white shadow-[0_50px_120px_rgba(0,0,0,0.12)] perspective-2000 transition-all duration-700"
     >
       {/* Precision Detail Elements */}
       <div className="absolute top-5 left-6 right-6 flex justify-between opacity-10 pointer-events-none">
@@ -132,7 +134,7 @@ export default function BookingWidget() {
       {/* Header Info */}
       <div className="flex items-center gap-1.5 mb-5 lg:mb-6 justify-center">
          <Sparkles className="w-3 h-3 text-primary" />
-         <span className="text-[8px] lg:text-[10px] font-black text-primary uppercase tracking-[0.4em] lg:tracking-[0.6em]">Curation Console</span>
+         <span className="text-[8px] lg:text-[10px] font-black text-primary uppercase tracking-[0.4em] lg:tracking-[0.6em]">Plan Your Trip</span>
       </div>
 
       {/* Modern High-End Tabs */}
@@ -144,7 +146,7 @@ export default function BookingWidget() {
             className={`flex flex-col items-center gap-1.5 lg:gap-2.5 flex-1 transition-all relative group ${
               activeTab === tab.id
                 ? "text-gray-950"
-                : "text-gray-300 hover:text-gray-400"
+                : "text-gray-500/60 hover:text-gray-700"
             }`}
           >
             <div className={`w-10 h-10 lg:w-14 lg:h-14 rounded-full flex items-center justify-center transition-all duration-700 ${activeTab === tab.id ? "bg-[#050807] text-white shadow-lg" : "bg-gray-50/50 border border-gray-100 group-hover:bg-white text-gray-400"}`}>
@@ -171,9 +173,9 @@ export default function BookingWidget() {
             className="flex items-center justify-center gap-4 lg:gap-8 mb-5 lg:mb-8"
           >
             {[
-              { id: "one-way", label: "Private" },
-              { id: "round-trip", label: "Return" },
-              { id: "multi-city", label: "Global" },
+              { id: "one-way", label: "One Way" },
+              { id: "round-trip", label: "Round Trip" },
+              { id: "multi-city", label: "Multi City" },
             ].map((type) => (
               <button 
                 key={type.id}
@@ -195,14 +197,14 @@ export default function BookingWidget() {
         <div className={`relative flex flex-col ${activeTab === "flights" ? "sm:grid sm:grid-cols-2" : ""} gap-3 lg:gap-4`}>
           {activeTab === "flights" && (
             <div className="space-y-1.5 lg:space-y-2">
-              <label className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">Departure Point</label>
+              <label className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">From</label>
               <div className="relative group">
                 <input 
                   type="text" 
-                  placeholder="Manifest from"
+                  placeholder="Departure city"
                   value={formData.from}
                   onChange={(e) => setFormData({...formData, from: e.target.value})}
-                  className="w-full bg-gray-50/50 border border-gray-100 rounded-[14px] lg:rounded-[16px] h-12 lg:h-16 pl-4 lg:pl-6 pr-4 lg:pr-6 text-[11px] lg:text-sm font-black text-gray-950 focus:outline-none focus:border-primary/30 focus:bg-white transition-all placeholder:text-gray-300 uppercase tracking-tight"
+                  className="w-full bg-gray-50/50 border border-gray-100 rounded-[14px] lg:rounded-[16px] h-12 lg:h-16 pl-4 lg:pl-6 pr-4 lg:pr-6 text-[11px] lg:text-sm font-black text-gray-950 focus:outline-none focus:border-primary/30 focus:bg-white transition-all placeholder:text-gray-400 uppercase tracking-tight"
                 />
               </div>
             </div>
@@ -219,15 +221,15 @@ export default function BookingWidget() {
 
           <div className="space-y-1.5 lg:space-y-2">
             <label className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
-              {activeTab === "flights" ? "Target Sanctuary" : activeTab === "hotels" ? "Refined Locale" : "Global Target"}
+              {activeTab === "flights" ? "To" : activeTab === "hotels" ? "Location" : "Destination"}
             </label>
             <div className="relative group">
               <input 
                 type="text" 
-                placeholder={activeTab === "visa" ? "Destination State" : "Where Shall We Lead?"}
+                placeholder={activeTab === "visa" ? "Country name" : "Where to go?"}
                 value={formData.to}
                 onChange={(e) => setFormData({...formData, to: e.target.value})}
-                className="w-full bg-gray-50/50 border border-gray-100 rounded-[14px] lg:rounded-[16px] h-12 lg:h-16 pl-4 lg:pl-6 pr-4 lg:pr-6 text-[11px] lg:text-sm font-black text-gray-950 focus:outline-none focus:border-primary/30 focus:bg-white transition-all placeholder:text-gray-300 uppercase tracking-tight"
+                className="w-full bg-gray-50/50 border border-gray-100 rounded-[14px] lg:rounded-[16px] h-12 lg:h-16 pl-4 lg:pl-6 pr-4 lg:pr-6 text-[11px] lg:text-sm font-black text-gray-950 focus:outline-none focus:border-primary/30 focus:bg-white transition-all placeholder:text-gray-400 uppercase tracking-tight"
               />
             </div>
           </div>
@@ -236,13 +238,13 @@ export default function BookingWidget() {
         <div className={`grid ${activeTab === "visa" || activeTab === "packages" ? "grid-cols-1" : "grid-cols-2"} gap-3 lg:gap-4`}>
           <div className="space-y-1.5 lg:space-y-2">
             <label className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
-              Timeline Start
+              {activeTab === "hotels" ? "Check-in" : "Date"}
             </label>
             <div className="relative group">
               <Calendar className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 lg:w-4 lg:h-4 text-primary opacity-30" />
               <input 
                 type="text" 
-                placeholder="Initiate Date"
+                placeholder="Select date"
                 value={formData.departure}
                 onFocus={(e) => (e.target.type = "date")}
                 onBlur={(e) => (e.target.type = "text")}
@@ -255,13 +257,13 @@ export default function BookingWidget() {
           {(activeTab === "flights" || activeTab === "hotels") && (
             <div className="space-y-1.5 lg:space-y-2">
               <label className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
-                Timeline Finale
+                {activeTab === "hotels" ? "Check-out" : "Return Date"}
               </label>
               <div className="relative group">
                 <Calendar className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 lg:w-4 lg:h-4 text-primary opacity-30" />
                 <input 
                   type="text" 
-                  placeholder="Conclusion Date"
+                  placeholder="Select date"
                   value={formData.returnDate}
                   onFocus={(e) => (e.target.type = "date")}
                   onBlur={(e) => (e.target.type = "text")}
@@ -276,7 +278,7 @@ export default function BookingWidget() {
 
         <div className="space-y-1.5 lg:space-y-2">
           <label className="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1 font-serif italic leading-none">
-            Explorer Specification
+            Travelers
           </label>
           <div className="relative group">
             <Users className="absolute left-4 lg:left-5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 lg:w-4 lg:h-4 text-primary opacity-30" />
@@ -285,10 +287,10 @@ export default function BookingWidget() {
               onChange={(e) => setFormData({...formData, travellers: e.target.value})}
               className="w-full bg-gray-50/50 border border-gray-100 rounded-[14px] lg:rounded-[16px] h-12 lg:h-16 pl-10 lg:pl-12 pr-8 lg:pr-10 text-[10px] lg:text-[11px] font-black text-gray-950 appearance-none focus:outline-none focus:border-primary/30 transition-all cursor-pointer uppercase"
             >
-              <option>1 Explorer, First Class</option>
-              <option>2 Explorers, Business Elite</option>
-              <option>Family Delegation (2+2)</option>
-              <option>Private Circle (5+)</option>
+              <option>1 Traveler</option>
+              <option>2 Travelers</option>
+              <option>Family (2+2)</option>
+              <option>Group (5+)</option>
             </select>
           </div>
         </div>
@@ -297,12 +299,12 @@ export default function BookingWidget() {
           onClick={handleSearch}
           className="w-full bg-[#050807] hover:bg-primary text-white font-black h-13 lg:h-16 rounded-[16px] lg:rounded-[20px] flex items-center justify-center gap-3 lg:gap-4 transition-all shadow-xl active:scale-[0.98] group mt-4 lg:mt-6"
         >
-          <span className="uppercase tracking-[0.3em] lg:tracking-[0.4em] text-[10px] lg:text-[11px] font-black">Commission Curation</span>
+          <span className="uppercase tracking-[0.3em] lg:tracking-[0.4em] text-[10px] lg:text-[11px] font-black">Search & Book</span>
           <Search className="w-4 h-4 lg:w-5 lg:h-5 group-hover:scale-110 transition-transform" />
         </button>
         
         <p className="text-center text-[7px] lg:text-[9px] font-bold text-gray-300 uppercase tracking-[0.2em] lg:tracking-[0.4em] pt-1 lg:pt-2 leading-none">
-          Secure Global Protocols • ISO Certified
+          Trusted by thousands of travelers
         </p>
       </div>
     </div>

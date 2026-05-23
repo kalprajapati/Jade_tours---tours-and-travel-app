@@ -127,7 +127,7 @@ export default function Hero() {
         <div className="relative w-full h-full hero-bg-image will-change-transform">
           <Image 
             src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2400&auto=format&fit=crop" 
-            alt="Beautiful Landscape"
+            alt="Jade Tours and Travel - Luxury Global Destinations"
             fill
             className="object-cover object-center opacity-70 lg:opacity-90 brightness-[0.85]"
             priority

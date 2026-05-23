@@ -28,9 +28,16 @@ export const metadata: Metadata = {
   description: "Expert global travel, passport, and visa services. 15+ years of excellence in Ahmedabad, Gujarat.",
   keywords: ["travel agency", "visa assistance", "passport services", "custom tours", "Jade Travels", "Jigar Shah", "Dhara Patel", "Ahmedabad travel agency"],
   authors: [{ name: "Jade Tours & Travel" }],
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/globe.svg",
+    apple: "/globe.svg",
+  },
   openGraph: {
     title: "Jade Tours & Travel | Perfect Trips Every Time",
     description: "Custom plans and expert travel support. Travel with confidence with Jade Tours & Travel.",
+    url: "https://jadetravels.co.in",
+    siteName: "Jade Tours & Travel",
     images: [{
       url: "/assets/image.png",
       width: 1200,

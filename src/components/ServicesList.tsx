@@ -149,9 +149,9 @@ export default function ServicesList() {
                     <span className="text-[8px] lg:text-[10px] font-black text-primary/40 uppercase tracking-[0.2em]">
                       {service.category}
                     </span>
-                    <h4 className="text-[18px] lg:text-[24px] font-sans font-black text-gray-950 group-hover:text-primary transition-colors duration-700 leading-tight tracking-tight uppercase">
+                    <h3 className="text-[18px] lg:text-[24px] font-sans font-black text-gray-950 group-hover:text-primary transition-colors duration-700 leading-tight tracking-tight uppercase">
                       {service.title}
-                    </h4>
+                    </h3>
                   </div>
                   <p className="text-gray-500 text-[12px] lg:text-lg leading-relaxed font-medium tracking-tight">
                     {service.desc}

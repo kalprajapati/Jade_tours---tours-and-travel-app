@@ -1,0 +1,17 @@
+{
+  "name": "Jade Tours & Travel",
+  "short_name": "JadeTravels",
+  "description": "Expert Travel, Passport & Visa Services",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#388E3C",
+  "icons": [
+    {
+      "src": "/globe.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

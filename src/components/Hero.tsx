@@ -69,21 +69,21 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
       </div>
 
-      <div className="container-custom relative z-10 pt-10 pb-12 lg:pb-24">
+      <div className="container-custom relative z-10 pt-10 pb-20 lg:pb-32">
         <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-12 lg:gap-24 items-center">
           
           {/* Left Side Content */}
           <div className="max-w-3xl">
-            <p className="hero-script font-script text-2xl md:text-3xl text-[#FFD700] mb-6 drop-shadow-md">
+            <p className="hero-script font-script text-xl md:text-2xl text-[#FFD700] mb-4 drop-shadow-md">
               Your Journey, Our Priority
             </p>
-            <h1 className="hero-title text-5xl md:text-7xl lg:text-8xl font-sans font-black leading-[1.1] mb-8 drop-shadow-lg">
+            <h1 className="hero-title text-4xl md:text-6xl lg:text-7xl font-sans font-black leading-[1.1] mb-6 drop-shadow-lg">
               Your Trusted Partner for <br className="hidden md:block" />
               Flights, Holidays & <br className="hidden md:block" />
               Seamless Travel
             </h1>
-            <div className="w-16 h-1 bg-[#FFD700] mb-8" />
-            <p className="hero-desc text-base md:text-xl text-white/90 mb-10 max-w-xl leading-relaxed font-medium">
+            <div className="w-16 h-1 bg-[#FFD700] mb-6" />
+            <p className="hero-desc text-base lg:text-lg text-white/90 mb-8 max-w-xl leading-relaxed font-medium">
               From air ticketing and visa assistance to customized domestic and international tours — Jade Tours & Travels makes every journey smooth, affordable, and stress-free.
             </p>
             

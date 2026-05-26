@@ -111,17 +111,17 @@ export default function TrustSection() {
   }, []);
 
   return (
-    <section id="trust" ref={containerRef} className="relative z-20 py-16 lg:py-24 bg-white overflow-hidden scroll-mt-24">
+    <section id="trust" ref={containerRef} className="relative z-20 py-12 lg:py-16 bg-white overflow-hidden scroll-mt-24">
       {/* Refined Background Elements */}
       <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_90%_10%,rgba(56,142,60,0.03),transparent_60%)] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-full h-full bg-[radial-gradient(circle_at_10%_90%,rgba(56,142,60,0.02),transparent_60%)] pointer-events-none" />
       
       <div className="container-custom relative z-10">
-        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-24 items-start mb-12 lg:mb-20">
+        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-16 items-start mb-8 lg:mb-12">
           
           {/* Left Side: Editorial Content */}
-          <div className="space-y-8 lg:space-y-10 lg:sticky lg:top-32">
-            <div className="trust-headline space-y-4 lg:space-y-6">
+          <div className="space-y-6 lg:space-y-8 lg:sticky lg:top-32">
+            <div className="trust-headline space-y-3 lg:space-y-4">
               <div className="flex items-center gap-3 text-primary font-black uppercase tracking-[0.5em] text-[10px] lg:text-[11px] mb-2 lg:mb-4">
                 <span className="w-8 h-[1px] bg-primary/30" />
                 Reliability & Excellence
@@ -216,7 +216,7 @@ export default function TrustSection() {
         </div>
 
         {/* Recognition Layer - Redesigned Logo Garden */}
-        <div className="partners-layer pt-16 lg:pt-32 border-t border-gray-100/60 relative">
+        <div className="partners-layer pt-12 lg:pt-16 border-t border-gray-100/60 relative">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-6 lg:px-8">
              <p className="text-[9px] lg:text-[11px] font-black uppercase tracking-[0.4em] lg:tracking-[0.6em] text-gray-400 whitespace-nowrap">
               Authorized Travel Partner

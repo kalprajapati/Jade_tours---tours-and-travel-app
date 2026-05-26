@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronRight, ChevronLeft, MapPin, ArrowRight, Star, Plane, Globe } from "lucide-react";
+import { ChevronRight, ChevronLeft, MapPin, ArrowRight, Star, Plane, Globe, Sparkles } from "lucide-react";
 import Image from "next/image";
 import MagneticButton from "@/components/ui/MagneticButton";
 import gsap from "gsap";
@@ -14,86 +14,49 @@ if (typeof window !== "undefined") {
 const destinations = [
   { 
     name: "Dubai", 
-    location: "UAE", 
     image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1200&auto=format&fit=crop",
-    desc: "Luxury shopping, ultramodern architecture and a lively nightlife scene.",
-    tag: "Modernist",
-    duration: "5-6 Days",
-    rating: "4.9",
-    code: "JADE-DXB"
+    price: "₹24,999"
   },
   { 
     name: "Bali", 
-    location: "Indonesia", 
     image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?q=80&w=1200&auto=format&fit=crop",
-    desc: "Tropical paradise known for its forested volcanic mountains and iconic rice paddies.",
-    tag: "Tropical",
-    duration: "6-8 Days",
-    rating: "4.8",
-    code: "JADE-DPS"
+    price: "₹29,999"
   },
   { 
     name: "Thailand", 
-    location: "Southeast Asia", 
     image: "/assets/thailand.png",
-    desc: "Vibrant culture, beautiful beaches, and world-renowned street food.",
-    tag: "Exotic",
-    duration: "7-10 Days",
-    rating: "4.7",
-    code: "JADE-BKK"
+    price: "₹19,999"
   },
   { 
     name: "Singapore", 
-    location: "Southeast Asia", 
     image: "/assets/singapore.png",
-    desc: "A global financial center with a tropical climate and multicultural population.",
-    tag: "Urban",
-    duration: "4-5 Days",
-    rating: "4.9",
-    code: "JADE-SIN"
+    price: "₹28,999"
   },
   { 
     name: "Maldives", 
-    location: "Indian Ocean", 
     image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?q=80&w=1200&auto=format&fit=crop",
-    desc: "Pristine white-sand beaches and crystal-clear turquoise waters.",
-    tag: "Exclusive",
-    duration: "5-7 Days",
-    rating: "5.0",
-    code: "JADE-MLE"
+    price: "₹38,999"
   },
   { 
     name: "Kashmir", 
-    location: "India", 
     image: "https://images.unsplash.com/photo-1595815771614-ade9d652a65d?q=80&w=1200&auto=format&fit=crop",
-    desc: "Heaven on earth with stunning landscapes and serene dal lake houseboats.",
-    tag: "Serene",
-    duration: "6-7 Days",
-    rating: "4.9",
-    code: "JADE-SXR"
+    price: "₹15,999"
   },
   { 
     name: "Europe", 
-    location: "Various Cities", 
     image: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=1200&auto=format&fit=crop",
-    desc: "Rich history, iconic landmarks, and a diverse range of cultures and cuisines.",
-    tag: "Classic",
-    duration: "10-15 Days",
-    rating: "4.8",
-    code: "JADE-EUR"
+    price: "₹69,999"
   },
 ];
 
 export default function PopularDestinations() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Headline Reveal
-      gsap.fromTo(".dest-headline-line", 
-        { y: 50, opacity: 0 },
+      gsap.fromTo(".dest-card", 
+        { y: 30, opacity: 0 },
         {
           y: 0,
           opacity: 1,
@@ -101,199 +64,65 @@ export default function PopularDestinations() {
           duration: 1,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: ".dest-header",
-            start: "top 90%",
-          }
-        }
-      );
-
-      // Cards Fan-In Animation
-      gsap.fromTo(".dest-card", 
-        { x: 60, opacity: 0, rotateY: 15 },
-        {
-          x: 0,
-          opacity: 1,
-          rotateY: 0,
-          stagger: 0.1,
-          ease: "power3.out",
-          duration: 1.2,
-          scrollTrigger: {
-            trigger: scrollRef.current,
+            trigger: ".dest-grid",
             start: "top 85%",
           }
         }
       );
-
-      // Parallax Background
-      gsap.to(".dest-bg-glow", {
-        y: 150,
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true
-        }
-      });
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
-  const handleScroll = () => {
-    if (scrollRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-      const currentProgress = (scrollLeft / (scrollWidth - clientWidth)) * 100;
-      setProgress(currentProgress);
-    }
-  };
-
-  const scroll = (direction: "left" | "right") => {
-    if (scrollRef.current) {
-      const { scrollLeft, clientWidth } = scrollRef.current;
-      const scrollTo = direction === "left" ? scrollLeft - clientWidth / 1.5 : scrollLeft + clientWidth / 1.5;
-      scrollRef.current.scrollTo({ left: scrollTo, behavior: "smooth" });
-    }
-  };
-
   const handleDestinationClick = (dest: typeof destinations[0]) => {
-    const message = `Hello Jade Tours & Travel! I am interested in the ${dest.name} package.\n\n` +
-      `🌍 DESTINATION: ${dest.name}, ${dest.location}\n` +
-      `⏱️ DURATION: ${dest.duration}\n` +
-      `🏷️ CATEGORY: ${dest.tag}\n\n` +
-      `Please provide more details on this journey.`;
-    
-    const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/919825438324?text=${encodedMessage}`, '_blank');
+    const message = encodeURIComponent(`Hello Jade Tours & Travel! I am interested in the ${dest.name} package.`);
+    window.open(`https://wa.me/919825438324?text=${message}`, '_blank');
   };
 
   return (
-    <section id="destinations" ref={containerRef} className="relative py-12 lg:py-32 bg-[#020504] overflow-hidden scroll-mt-24">
-      
-      {/* Cinematic Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="dest-bg-glow absolute top-0 right-0 w-[1000px] h-[1000px] bg-primary/[0.08] rounded-full blur-[160px] -translate-y-1/2 translate-x-1/3" />
-        <div className="dest-bg-glow absolute bottom-0 left-0 w-[800px] h-[800px] bg-emerald-500/[0.04] rounded-full blur-[140px] translate-y-1/2 -translate-x-1/3" />
-        <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-      </div>
-
-      <div className="container-custom relative z-10">
+    <section id="destinations" ref={containerRef} className="py-16 lg:py-24 bg-[#FDFCF7]/30 scroll-mt-24">
+      <div className="container-custom">
         
         {/* Header Section */}
-        <div className="dest-header flex flex-col lg:flex-row lg:items-end justify-between mb-12 lg:mb-24 gap-8 lg:gap-12">
-          <div className="max-w-4xl space-y-6 lg:space-y-8">
-            <div className="flex items-center gap-3 text-primary font-black uppercase tracking-[0.6em] text-[10px] lg:text-[11px] mb-2 lg:mb-4">
-              <span className="w-8 h-[1px] bg-primary/30" />
+        <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 lg:mb-16 gap-6">
+          <div className="flex items-center gap-4 lg:gap-6">
+            <Sparkles className="w-8 h-8 lg:w-10 lg:h-10 text-[#FFD700] fill-[#FFD700]/10" />
+            <h2 className="text-4xl lg:text-7xl font-sans font-black text-gray-900 tracking-tighter leading-tight uppercase">
               Popular Destinations
-            </div>
-            
-            <h2 className="text-[34px] md:text-[52px] lg:text-[68px] xl:text-[84px] font-sans font-black text-white leading-[0.95] lg:leading-[1] tracking-tightest uppercase">
-              <span className="block dest-headline-line">The World&apos;s</span>
-              <span className="block dest-headline-line text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-primary/40 italic font-serif font-light lowercase normal-case py-1">Best</span>
-              <span className="block dest-headline-line">Experiences.</span>
             </h2>
-            
-            <p className="text-gray-500 text-[14px] lg:text-xl leading-relaxed max-w-2xl font-medium tracking-tight opacity-90">
-              Hand-picked escapes for every kind of traveler. From the modern skylines of Dubai to the serene dal lakes of Kashmir.
-            </p>
           </div>
-          
-          <div className="flex flex-col gap-6 lg:gap-8">
-            <div className="flex gap-4 lg:gap-6">
-              <button 
-                onClick={() => scroll("left")}
-                className="w-14 h-14 lg:w-20 lg:h-20 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.02] text-white hover:bg-primary hover:border-primary transition-all duration-700 shadow-2xl active:scale-90"
-              >
-                <ChevronLeft className="w-6 h-6 lg:w-10 lg:h-10 relative z-10" />
-              </button>
-              <button 
-                onClick={() => scroll("right")}
-                className="w-14 h-14 lg:w-20 lg:h-20 rounded-full border border-white/10 flex items-center justify-center bg-white/[0.02] text-white hover:bg-primary hover:border-primary transition-all duration-700 shadow-2xl active:scale-90"
-              >
-                <ChevronRight className="w-6 h-6 lg:w-10 lg:h-10 relative z-10" />
-              </button>
-            </div>
-            <div className="h-[2px] w-full bg-white/10 rounded-full overflow-hidden relative">
-              <motion.div 
-                className="absolute inset-0 bg-primary origin-left"
-                style={{ scaleX: progress / 100 }}
-              />
-            </div>
-          </div>
+          <MagneticButton 
+            onClick={() => window.open('https://wa.me/919825438324', '_blank')}
+            className="px-10 py-4 border-2 border-gray-100 hover:border-[#2E7D32] hover:text-[#2E7D32] text-gray-500 font-bold rounded-full transition-all text-xs tracking-[0.2em] uppercase bg-white shadow-sm hover:shadow-xl active:scale-95"
+          >
+            Explore All Destinations
+          </MagneticButton>
         </div>
 
-        {/* Anthology Slider */}
-        <div 
-          ref={scrollRef}
-          onScroll={handleScroll}
-          className="flex gap-6 lg:gap-12 overflow-x-auto no-scrollbar pb-12 snap-x snap-mandatory"
-        >
+        {/* Destination Cards */}
+        <div className="dest-grid flex lg:grid lg:grid-cols-7 overflow-x-auto lg:overflow-visible snap-x snap-mandatory lg:snap-none no-scrollbar gap-5 lg:gap-8 -mx-5 px-5 lg:mx-0 lg:px-0 pb-8 lg:pb-0">
           {destinations.map((dest, i) => (
             <div
               key={i}
               onClick={() => handleDestinationClick(dest)}
-              className="dest-card min-w-[300px] md:min-w-[450px] lg:min-w-[600px] group snap-start relative h-[400px] lg:h-[650px] rounded-[32px] lg:rounded-[56px] overflow-hidden cursor-pointer shadow-[0_50px_100px_rgba(0,0,0,0.6)] border border-white/5 bg-gray-950 transition-all duration-1000 active:scale-[0.98]"
+              className="dest-card group cursor-pointer flex flex-col flex-shrink-0 w-[240px] sm:w-[300px] lg:w-auto snap-center"
             >
-              <Image 
-                src={dest.image} 
-                alt={dest.name} 
-                fill 
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-cover transition-transform duration-[6s] lg:group-hover:scale-110 ease-out brightness-[0.7] group-hover:brightness-90 transition-all duration-700" 
-              />
-              
-              <div className="absolute inset-0 bg-gradient-to-t from-[#020504] via-transparent to-[#020504]/40 opacity-90" />
-              
-              {/* Info Overlay */}
-              <div className="absolute inset-0 p-8 lg:p-12 flex flex-col justify-between z-30">
-                <div className="flex justify-between items-start">
-                  <div className="bg-white/10 backdrop-blur-md rounded-full px-4 py-1.5 border border-white/10 flex items-center gap-2">
-                    <MapPin className="w-3 h-3 text-primary" />
-                    <span className="text-[10px] font-black text-white uppercase tracking-widest">{dest.location}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 px-3 py-1 bg-black/40 backdrop-blur-md rounded-full border border-white/10">
-                    <Star className="w-3.5 h-3.5 text-accent-gold fill-accent-gold" />
-                    <span className="text-[11px] font-black text-white">{dest.rating}</span>
-                  </div>
-                </div>
-
-                <div className="space-y-4 lg:space-y-6">
-                  <div className="space-y-2">
-                    <h3 className="text-3xl lg:text-6xl font-sans font-black text-white uppercase tracking-tightest leading-none">
-                      {dest.name}
-                    </h3>
-                    <p className="text-gray-300 text-sm lg:text-lg font-medium leading-relaxed max-w-sm line-clamp-2">
-                      {dest.desc}
-                    </p>
-                  </div>
-                  
-                  <div className="flex items-center justify-between pt-4 border-t border-white/10">
-                    <div className="flex flex-col gap-0.5">
-                      <span className="text-[9px] font-black text-white/30 uppercase tracking-widest">Starting At</span>
-                      <span className="text-xl lg:text-2xl font-black text-primary tracking-tight">Best Price</span>
-                    </div>
-                    <div className="w-12 h-12 lg:w-16 lg:h-16 rounded-full bg-primary text-white flex items-center justify-center transition-all duration-700 hover:scale-110">
-                      <ArrowRight className="w-6 h-6 lg:w-8 lg:h-8" />
-                    </div>
-                  </div>
-                </div>
+              <div className="relative aspect-[3/4.2] rounded-[40px] lg:rounded-[48px] overflow-hidden mb-6 lg:mb-8 shadow-[0_15px_35px_rgba(0,0,0,0.04)] group-hover:shadow-[0_40px_80px_rgba(46,125,50,0.15)] lg:group-hover:-translate-y-3 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] active:scale-95">
+                <Image 
+                  src={dest.image} 
+                  alt={dest.name} 
+                  fill 
+                  unoptimized
+                  className="object-cover group-hover:scale-110 transition-transform duration-[2s] ease-out" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+              </div>
+              <div className="text-center space-y-1.5 lg:space-y-2 group-hover:-translate-y-1 transition-transform duration-500">
+                <h3 className="text-xl lg:text-3xl font-black text-gray-900 tracking-tight group-hover:text-[#2E7D32] transition-colors duration-500">{dest.name}</h3>
+                <p className="text-[9px] lg:text-[11px] font-black text-gray-400 uppercase tracking-[0.2em] leading-none">Starting from <span className="text-gray-900">{dest.price}</span></p>
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Global Action Footer */}
-        <div className="mt-16 lg:mt-24 text-center">
-          <MagneticButton 
-            onClick={() => {
-                const message = encodeURIComponent("Hello Jade Tours & Travel! I want to explore more destinations.");
-                window.open(`https://wa.me/919825438324?text=${message}`, '_blank');
-            }}
-            className="px-12 py-5 lg:px-20 lg:py-7 bg-white text-gray-950 font-black rounded-full transition-all shadow-3xl group inline-flex items-center gap-4 uppercase tracking-[0.3em] text-[11px] lg:text-sm active:scale-95"
-          >
-            <span>Explore All Packages</span>
-            <Globe className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-          </MagneticButton>
         </div>
       </div>
     </section>

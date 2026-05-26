@@ -50,17 +50,10 @@ export default function StickyCTA() {
               href={`https://wa.me/919825438324?text=${encodeURIComponent("Hello Jade Tours & Travel! I want to plan a trip and would like to speak with an expert.")}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative bg-[#25D366] text-white w-12 h-12 md:w-16 md:h-16 rounded-full shadow-[0_20px_40px_rgba(37,211,102,0.3)] transition-all duration-500 hover:scale-110 flex items-center justify-center overflow-hidden hover:shadow-[0_25px_50px_rgba(37,211,102,0.5)] active:scale-90"
+              className="bg-[#25D366] text-white w-14 h-14 rounded-full shadow-[0_20px_40px_rgba(37,211,102,0.3)] transition-all duration-500 hover:scale-110 flex items-center justify-center hover:shadow-[0_25px_50px_rgba(37,211,102,0.5)] active:scale-90"
               aria-label="Chat on WhatsApp"
             >
-              {/* Inner Pulse Effect */}
-              <div className="absolute inset-0 bg-white/20 animate-ping opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-              <div className="w-5 h-5 md:w-6 md:h-6 relative z-10">
-                <WhatsAppIcon />
-              </div>
-              <span className="max-w-0 md:group-hover:max-w-xs md:group-hover:ml-4 transition-all duration-700 ease-[0.16,1,0.3,1] overflow-hidden whitespace-nowrap font-sans text-xs font-black uppercase tracking-widest relative z-10">
-                Talk to Expert
-              </span>
+              <WhatsAppIcon />
             </a>
 
             {/* Scroll to Top */}

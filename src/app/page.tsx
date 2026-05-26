@@ -120,16 +120,13 @@ export default function Home() {
                 {/* 8. Testimonials */}
                 <Testimonials />
 
-                {/* 9. Air Ticketing */}
+                {/* 9. Special Air Ticketing */}
                 <AirTicketing />
 
-                {/* 10. FAQs */}
+                {/* 10. FAQ Section */}
                 <FAQ />
 
-                {/* 11. Instagram Feed (Travel Stories) */}
-                <InstagramFeed />
-
-                {/* 12. CTA Section */}
+                {/* 11. CTA Section */}
                 <CTASection />
             </div>
         </main>

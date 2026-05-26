@@ -116,7 +116,7 @@ export default function ServicesGrid() {
   if (!mounted) return <section className="min-h-screen bg-[#0B1310]" />;
 
   return (
-    <section id="services-grid" ref={containerRef} className="relative bg-[#0B1310] py-12 md:py-32 lg:py-48 scroll-mt-24">
+    <section id="services-grid" ref={containerRef} className="relative bg-[#0B1310] py-12 md:py-24 lg:py-32 scroll-mt-24">
       
       {/* Background Elements */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
@@ -200,7 +200,7 @@ export default function ServicesGrid() {
           </div>
 
           {/* Right Side: Media Stream */}
-          <div className="w-full md:w-1/2 space-y-10 md:space-y-48 lg:space-y-64 pb-4 md:pb-24">
+          <div className="w-full md:w-1/2 space-y-10 md:space-y-32 lg:space-y-40 pb-4 md:pb-16">
             {services.map((service) => (
               <div 
                 key={service.id} 
@@ -230,25 +230,25 @@ export default function ServicesGrid() {
                 </div>
 
                 {/* Mobile Service Details */}
-                <div className="mt-6 md:hidden space-y-5 px-1">
+                <div className="mt-6 md:hidden space-y-4 px-1">
                   <div className="relative">
-                    <span className="block font-serif text-5xl text-[#F2EFE9]/5 leading-none absolute -top-6 -left-1">
+                    <span className="block font-serif text-5xl text-[#F2EFE9]/5 leading-none absolute -top-5 -left-1">
                       {service.id}
                     </span>
-                    <h3 className="relative z-10 font-serif text-3xl text-[#F2EFE9] leading-tight tracking-tight">
+                    <h3 className="relative z-10 font-serif text-2xl text-[#F2EFE9] leading-tight tracking-tight">
                       {service.title}
                     </h3>
                   </div>
                   
-                  <p className="text-[#F2EFE9]/60 font-sans text-base leading-relaxed">
+                  <p className="text-[#F2EFE9]/60 font-sans text-sm leading-relaxed">
                     {service.desc}
                   </p>
 
-                  <div className="grid grid-cols-1 gap-3 py-2">
+                  <div className="grid grid-cols-1 gap-2 py-1">
                     {service.details.map((detail, idx) => (
                       <div key={idx} className="flex items-center gap-3 group">
                         <div className="w-1 h-1 rounded-full bg-[#C1A67B]" />
-                        <span className="text-[#F2EFE9]/40 font-sans text-[9px] font-bold uppercase tracking-[0.15em]">
+                        <span className="text-[#F2EFE9]/40 font-sans text-[8px] font-black uppercase tracking-[0.15em]">
                           {detail}
                         </span>
                       </div>
@@ -257,31 +257,31 @@ export default function ServicesGrid() {
 
                   <button 
                     onClick={() => handleInquiryClick(service)}
-                    className="w-full group flex items-center justify-between p-5 rounded-xl border border-[#F2EFE9]/10 bg-[#F2EFE9]/[0.02]"
+                    className="w-full group flex items-center justify-between p-4 rounded-xl border border-[#F2EFE9]/10 bg-[#F2EFE9]/[0.02] active:bg-[#F2EFE9]/5 transition-colors"
                   >
-                    <span className="text-[#F2EFE9] text-[9px] font-bold uppercase tracking-[0.3em]">
+                    <span className="text-[#F2EFE9] text-[8px] font-black uppercase tracking-[0.3em]">
                       Inquire Now
                     </span>
-                    <div className="w-8 h-8 rounded-full border border-[#F2EFE9]/10 flex items-center justify-center group-active:bg-[#C1A67B] transition-all">
-                      <ArrowUpRight className="w-3.5 h-3.5 text-[#C1A67B]" />
+                    <div className="w-8 h-8 rounded-full border border-[#F2EFE9]/10 flex items-center justify-center bg-[#C1A67B]">
+                      <ArrowUpRight className="w-3.5 h-3.5 text-[#0B1310]" />
                     </div>
                   </button>
                 </div>
               </div>
             ))}
 
-            <div className="relative p-6 md:p-14 rounded-[2.5rem] md:rounded-[3.5rem] bg-gradient-to-br from-white/5 to-transparent backdrop-blur-3xl border border-[#F2EFE9]/10 overflow-hidden group">
+            <div className="relative p-8 md:p-14 rounded-[2rem] md:rounded-[3.5rem] bg-gradient-to-br from-white/5 to-transparent backdrop-blur-3xl border border-[#F2EFE9]/10 overflow-hidden group">
               <div className="relative z-10 flex flex-col items-center text-center">
-                <span className="text-[#C1A67B] font-sans text-[9px] font-bold uppercase tracking-[0.4em] mb-4 md:mb-6 block">
+                <span className="text-[#C1A67B] font-sans text-[8px] font-black uppercase tracking-[0.4em] mb-3 md:mb-6 block">
                   Expert Planning
                 </span>
-                <h3 className="font-serif text-2xl md:text-5xl text-[#F2EFE9] mb-6 md:mb-8 leading-tight tracking-tighter">
+                <h3 className="font-serif text-2xl md:text-5xl text-[#F2EFE9] mb-6 md:mb-8 leading-tight tracking-tighter text-center">
                   Your Journey Starts <br />
                   <span className="italic font-light text-[#C1A67B]">with one simple talk.</span>
                 </h3>
                 <button 
                   onClick={handleConsultClick}
-                  className="group relative px-10 py-4 md:px-14 md:py-6 bg-[#C1A67B] text-[#0B1310] font-sans text-[10px] font-bold uppercase tracking-[0.3em] rounded-full overflow-hidden transition-all duration-700 hover:bg-[#0B1310] hover:text-white"
+                  className="group relative px-10 py-4 md:px-14 md:py-6 bg-[#C1A67B] text-[#0B1310] font-sans text-[10px] font-bold uppercase tracking-[0.3em] rounded-full overflow-hidden transition-all duration-700 active:scale-95"
                 >
                   <span className="relative z-10">Talk to an Expert</span>
                 </button>

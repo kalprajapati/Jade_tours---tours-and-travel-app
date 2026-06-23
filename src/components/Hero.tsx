@@ -116,7 +116,7 @@ export default function Hero() {
       </div>
 
       {/* Floating Service Bar - High Fidelity Pill Design */}
-      <div className="hero-floating-bar relative lg:absolute bottom-0 lg:bottom-10 left-0 lg:left-1/2 lg:-translate-x-1/2 w-full lg:w-[95%] max-w-[1600px] px-4 sm:px-6 lg:px-12 z-20 mt-12 lg:mt-0">
+      <div className="hero-floating-bar relative lg:mt-0 bottom-0 lg:bottom-10 left-0  lg:-translate-x-1/2 w-full lg:w-[95%] max-w-[1600px] px-4 sm:px-6 lg:px-12 z-20 mt-12 lg:mt-0">
         <div className="bg-black/30 backdrop-blur-2xl border border-white/10 rounded-4xl lg:rounded-full p-4 lg:p-7  lg:flex lg:items-center lg:justify-between gap-12 lg:gap-4 shadow-2xl flex-col lg:flex-row ">
           {[
             { label: "Air Ticketing", icon: Plane },

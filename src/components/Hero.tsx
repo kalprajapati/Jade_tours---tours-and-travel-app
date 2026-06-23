@@ -117,14 +117,14 @@ export default function Hero() {
 
       {/* Floating Service Bar - High Fidelity Pill Design */}
       <div className="hero-floating-bar relative lg:absolute bottom-0 lg:bottom-10 left-0 lg:left-1/2 lg:-translate-x-1/2 w-full lg:w-[95%] max-w-[1600px] px-4 sm:px-6 lg:px-12 z-20 mt-12 lg:mt-0">
-        <div className="bg-black/30 backdrop-blur-2xl border border-white/10 rounded-full p-4 lg:p-7 grid grid-cols-2 lg:flex lg:items-center lg:justify-between gap-6 lg:gap-8 shadow-2xl">
+        <div className="bg-black/30 backdrop-blur-2xl border border-white/10 rounded-4xl lg:rounded-full p-4 lg:p-7  lg:flex lg:items-center lg:justify-between gap-12 lg:gap-4 shadow-2xl flex-col lg:flex-row ">
           {[
             { label: "Air Ticketing", icon: Plane },
             { label: "International Tours", icon: Globe },
             { label: "Visa Assistance", icon: FileText },
             { label: "24/7 Travel Support", icon: Headphones },
           ].map((item, i) => (
-            <div key={i} className="flex items-center gap-3 lg:gap-5 px-2 lg:px-8 group cursor-default lg:flex-1 lg:justify-center">
+            <div key={i} className="flex items-center gap-3 py-2 lg:gap-5 px-2 lg:px-0 group cursor-default lg:flex-1 lg:justify-center">
               <div className="w-10 h-10 lg:w-14 lg:h-14 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-primary transition-all duration-500 shadow-inner shrink-0">
                 <item.icon className="w-5 h-5 lg:w-7 lg:h-7 text-white" />
               </div>

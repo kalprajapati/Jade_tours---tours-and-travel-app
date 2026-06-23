@@ -123,7 +123,7 @@ export default function BookingWidget() {
   return (
     <div 
       ref={widgetRef}
-      className="bg-white/95 backdrop-blur-2xl rounded-[28px] lg:rounded-[32px] p-4 lg:p-6 w-full max-w-[520px] mx-auto relative border border-white shadow-[0_40px_100px_rgba(0,0,0,0.1)] perspective-2000 transition-all duration-700"
+      className="z-100 bg-white/95 backdrop-blur-2xl rounded-[28px] lg:rounded-[32px] p-4 lg:p-6 w-full max-w-[520px] mx-auto relative border border-white shadow-[0_40px_100px_rgba(0,0,0,0.1)] perspective-2000 transition-all duration-700"
     >
       {/* Precision Detail Elements */}
       <div className="absolute top-4 left-5 right-5 flex justify-between opacity-10 pointer-events-none">

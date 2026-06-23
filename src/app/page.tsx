@@ -17,6 +17,7 @@ import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import StatsBar from "@/components/sections/StatsBar";
 
 const PopularDestinations = dynamic(() => import("@/components/sections/PopularDestinations"), { ssr: false });
+const TravelCurrencyGuide = dynamic(() => import("@/components/sections/TravelCurrencyGuide"), { ssr: false });
 const Testimonials = dynamic(() => import("@/components/luxury/Testimonials"), { ssr: false });
 const AirTicketing = dynamic(() => import("@/components/sections/AirTicketing"), { ssr: false });
 const FAQ = dynamic(() => import("@/components/sections/FAQ"), { ssr: false });
@@ -111,22 +112,25 @@ export default function Home() {
                 {/* 5. Destinations Section */}
                 <PopularDestinations />
 
-                {/* 6. Why Choose Us */}
+                {/* 6. Travel Currency Guide */}
+                <TravelCurrencyGuide />
+
+                {/* 7. Why Choose Us */}
                 <WhyChooseUs />
 
-                {/* 7. Process Section */}
+                {/* 8. Process Section */}
                 <USP />
 
-                {/* 8. Testimonials */}
+                {/* 9. Testimonials */}
                 <Testimonials />
 
-                {/* 9. Special Air Ticketing */}
+                {/* 10. Special Air Ticketing */}
                 <AirTicketing />
 
-                {/* 10. FAQ Section */}
+                {/* 11. FAQ Section */}
                 <FAQ />
 
-                {/* 11. CTA Section */}
+                {/* 12. CTA Section */}
                 <CTASection />
             </div>
         </main>
